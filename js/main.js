@@ -147,6 +147,29 @@ document.addEventListener('DOMContentLoaded', function () {
         el.classList.add('is-visible');
     });
 
+    // --- Program Tab Selector ---
+    const programTabs = document.querySelectorAll('.program-tab');
+    const programDetails = document.querySelectorAll('.program-detail');
+
+    if (programTabs.length > 0) {
+        programTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const programId = tab.dataset.program;
+
+                // Update tabs - remove active from all
+                programTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update content panels - hide all, show selected
+                programDetails.forEach(detail => detail.classList.remove('active'));
+                const targetDetail = document.getElementById('program-' + programId);
+                if (targetDetail) {
+                    targetDetail.classList.add('active');
+                }
+            });
+        });
+    }
+
     // --- History Filtering ---
     const filterBtns = document.querySelectorAll('.filter-btn');
     const historyCards = document.querySelectorAll('.showcase-card');
