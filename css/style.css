@@ -1255,11 +1255,10 @@ section:not(#hero)::before {
         gap: 20px;
     }
 
-    /* 5th card spans full width on tablet */
+    /* 5th card: same size as others on tablet */
     .program-card:nth-child(5) {
-        grid-column: 1 / -1;
-        max-width: 50%;
-        justify-self: center;
+        grid-column: auto;
+        max-width: 100%;
     }
 }
 
@@ -1275,9 +1274,10 @@ section:not(#hero)::before {
         min-height: 280px;
     }
 
+    /* 5th card same as others on small tablet */
     .program-card:nth-child(5) {
         max-width: 100%;
-        grid-column: 1 / -1;
+        grid-column: auto;
     }
 
     .card-icon {
@@ -1311,6 +1311,9 @@ section:not(#hero)::before {
     }
 
     .card-badge {
+        top: auto;
+        bottom: 16px;
+        right: 16px;
         font-size: 0.7rem;
         padding: 4px 10px;
     }
@@ -1427,7 +1430,8 @@ section:not(#hero)::before {
     }
 
     .card-badge {
-        top: 12px;
+        top: auto;
+        bottom: 12px;
         right: 12px;
         font-size: 0.65rem;
         padding: 4px 8px;
