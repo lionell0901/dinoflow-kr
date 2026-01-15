@@ -27,7 +27,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <!-- Development: css/style.css | Production: css/style.min.css -->
-    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
@@ -141,170 +141,255 @@
                 <div class="section-header fade-in">
                     <p class="section-tag">PROGRAM</p>
                     <h2 class="section-title">강의 프로그램</h2>
-                    <p class="section-description">목표와 대상에 맞춰 최적화된 커리큘럼을 제공합니다.</p>
+                    <p class="section-description">목표와 대상에 맞춰 최적화된 커리큘럼을 제공합니다.<br><span class="section-hint">카드를 클릭하면 상세 내용을 확인할 수 있어요</span></p>
                 </div>
 
-                <!-- 프로그램 선택기 (탭 + 콘텐츠 통합) -->
-                <div class="program-selector fade-in">
-                    <!-- 좌측: 선택 가이드 탭 -->
-                    <div class="program-tabs">
-                        <div class="tabs-header">
-                            <h3 class="tabs-title">어떤 프로그램이 맞을까요?</h3>
-                            <span class="tabs-hint"><i class="fa-solid fa-hand-pointer"></i> 클릭해서 선택</span>
+                <!-- 프로그램 카드 그리드 -->
+                <div class="program-cards fade-in">
+                    <!-- 카드 1: AI 리터러시 -->
+                    <article class="program-card" data-program="literacy" tabindex="0" role="button" aria-label="AI 리터러시 & 멀티툴 마스터 프로그램 상세보기">
+                        <div class="card-accent"></div>
+                        <div class="card-header">
+                            <span class="card-number">01</span>
+                            <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                         </div>
-                        <button class="program-tab active" data-program="literacy">
-                            <span class="tab-number">01</span>
-                            <div class="tab-text">
-                                <span class="tab-question">AI가 처음이에요</span>
-                                <span class="tab-answer">AI 리터러시 & 멀티툴</span>
+                        <div class="card-body">
+                            <span class="card-tag">AI 기초 역량</span>
+                            <h3 class="card-title">AI 리터러시 &<br>멀티툴 마스터</h3>
+                            <p class="card-desc">ChatGPT, Claude, Gemini를 상황에 맞게 선택하는 안목을 기릅니다.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-meta">
+                                <span><i class="fa-solid fa-users"></i> AI 입문자</span>
+                                <span><i class="fa-solid fa-clock"></i> 2~4시간</span>
                             </div>
-                            <i class="fa-solid fa-chevron-right tab-arrow"></i>
-                        </button>
-                        <button class="program-tab" data-program="assistant">
-                            <span class="tab-number">02</span>
-                            <div class="tab-text">
-                                <span class="tab-question">반복 업무를 자동화하고 싶어요</span>
-                                <span class="tab-answer">나만의 AI 비서 만들기</span>
-                            </div>
-                            <i class="fa-solid fa-chevron-right tab-arrow"></i>
-                        </button>
-                        <button class="program-tab" data-program="specialized">
-                            <span class="tab-number">03</span>
-                            <div class="tab-text">
-                                <span class="tab-question">직무에 딱 맞는 교육이 필요해요</span>
-                                <span class="tab-answer">직무 특화 AI 실무</span>
-                            </div>
-                            <i class="fa-solid fa-chevron-right tab-arrow"></i>
-                        </button>
-                        <button class="program-tab" data-program="cursor">
-                            <span class="tab-number">04</span>
-                            <div class="tab-text">
-                                <span class="tab-question">코딩 없이 도구를 만들고 싶어요</span>
-                                <span class="tab-answer">Cursor로 서비스 만들기</span>
-                            </div>
-                            <i class="fa-solid fa-chevron-right tab-arrow"></i>
-                        </button>
-                        <button class="program-tab" data-program="webpage">
-                            <span class="tab-number">05</span>
-                            <div class="tab-text">
-                                <span class="tab-question">나만의 웹사이트를 갖고 싶어요</span>
-                                <span class="tab-answer">나만의 웹페이지 만들기</span>
-                            </div>
-                            <i class="fa-solid fa-chevron-right tab-arrow"></i>
-                        </button>
-                    </div>
+                            <span class="card-cta">자세히 보기 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </article>
 
-                    <!-- 우측: 프로그램 상세 콘텐츠 -->
-                    <div class="program-details">
-                        <!-- 프로그램 1 -->
-                        <div class="program-detail active" id="program-literacy">
-                            <div class="detail-header">
-                                <span class="detail-tag">AI 기초 역량</span>
-                                <h3 class="detail-title">AI 리터러시 & 멀티툴 마스터</h3>
-                                <p class="detail-desc">하나의 AI에 종속되지 않고, 상황에 맞는 최적의 도구를 선택하는 안목을 기릅니다.</p>
+                    <!-- 카드 2: AI 비서 -->
+                    <article class="program-card" data-program="assistant" tabindex="0" role="button" aria-label="나만의 AI 비서 만들기 프로그램 상세보기">
+                        <div class="card-accent"></div>
+                        <div class="card-header">
+                            <span class="card-number">02</span>
+                            <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">업무 내재화</span>
+                            <h3 class="card-title">나만의<br>AI 비서 만들기</h3>
+                            <p class="card-desc">GPTs, Projects, Gems로 내 업무 전용 AI 비서를 직접 구축합니다.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-meta">
+                                <span><i class="fa-solid fa-users"></i> 실무자·팀</span>
+                                <span><i class="fa-solid fa-clock"></i> 2~4시간</span>
                             </div>
-                            <div class="detail-meta">
-                                <div class="meta-chip"><i class="fa-solid fa-users"></i> AI 입문자, 전 직원</div>
-                                <div class="meta-chip"><i class="fa-solid fa-clock"></i> 2~4시간</div>
+                            <span class="card-cta">자세히 보기 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </article>
+
+                    <!-- 카드 3: 직무 특화 -->
+                    <article class="program-card" data-program="specialized" tabindex="0" role="button" aria-label="직무 특화 AI 실무 프로그램 상세보기">
+                        <div class="card-accent"></div>
+                        <div class="card-header">
+                            <span class="card-number">03</span>
+                            <div class="card-icon"><i class="fa-solid fa-briefcase"></i></div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">직무별 맞춤</span>
+                            <h3 class="card-title">직무 특화<br>AI 실무</h3>
+                            <p class="card-desc">디자이너, 마케터, 기획자별 맞춤 AI 도구와 워크플로우를 훈련합니다.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-meta">
+                                <span><i class="fa-solid fa-users"></i> 직무별</span>
+                                <span><i class="fa-solid fa-clock"></i> 2~4시간</span>
                             </div>
-                            <div class="detail-content">
-                                <h4>핵심 내용</h4>
+                            <span class="card-cta">자세히 보기 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </article>
+
+                    <!-- 카드 4: Cursor -->
+                    <article class="program-card" data-program="cursor" tabindex="0" role="button" aria-label="Cursor로 서비스 만들기 프로그램 상세보기">
+                        <div class="card-accent"></div>
+                        <div class="card-header">
+                            <span class="card-number">04</span>
+                            <div class="card-icon"><i class="fa-solid fa-code"></i></div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">No-Code</span>
+                            <h3 class="card-title">Cursor로<br>서비스 만들기</h3>
+                            <p class="card-desc">코딩 없이 AI와 대화하며 아이디어를 실제 서비스로 구현합니다.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-meta">
+                                <span><i class="fa-solid fa-users"></i> 비개발자</span>
+                                <span><i class="fa-solid fa-clock"></i> 3~4시간</span>
+                            </div>
+                            <span class="card-cta">자세히 보기 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </article>
+
+                    <!-- 카드 5: 웹페이지 -->
+                    <article class="program-card" data-program="webpage" tabindex="0" role="button" aria-label="나만의 웹페이지 만들기 프로그램 상세보기">
+                        <div class="card-accent"></div>
+                        <div class="card-badge"><i class="fa-solid fa-gift"></i> 도메인 무료</div>
+                        <div class="card-header">
+                            <span class="card-number">05</span>
+                            <div class="card-icon"><i class="fa-solid fa-globe"></i></div>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Vibe Coding</span>
+                            <h3 class="card-title">나만의<br>웹페이지 만들기</h3>
+                            <p class="card-desc">포트폴리오, 랜딩 페이지를 AI와 함께 만들고 무료 배포합니다.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-meta">
+                                <span><i class="fa-solid fa-users"></i> 1인 사업가</span>
+                                <span><i class="fa-solid fa-clock"></i> 3~4시간</span>
+                            </div>
+                            <span class="card-cta">자세히 보기 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 프로그램 상세 모달 -->
+                <div class="program-modal" id="program-modal" aria-hidden="true">
+                    <div class="modal-backdrop" aria-label="닫기"></div>
+                    <div class="modal-content" role="dialog" aria-modal="true">
+                        <button class="modal-close" aria-label="모달 닫기">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+
+                        <!-- 모달 내용: literacy -->
+                        <div class="modal-body" data-modal="literacy">
+                            <div class="modal-header">
+                                <div class="modal-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                                <span class="modal-tag">AI 기초 역량</span>
+                                <h3 class="modal-title">AI 리터러시 & 멀티툴 마스터</h3>
+                                <p class="modal-desc">하나의 AI에 종속되지 않고, 상황에 맞는 최적의 도구를 선택하는 안목을 기릅니다.</p>
+                            </div>
+                            <div class="modal-meta">
+                                <div class="meta-item"><i class="fa-solid fa-users"></i> AI 입문자, 전 직원</div>
+                                <div class="meta-item"><i class="fa-solid fa-clock"></i> 2~4시간</div>
+                            </div>
+                            <div class="modal-details">
+                                <h4><i class="fa-solid fa-list-check"></i> 핵심 내용</h4>
                                 <ul>
-                                    <li>ChatGPT vs Claude vs Gemini: 업무별 최적 도구 선택법</li>
-                                    <li>Genspark, Perplexity 등 검색 특화 AI 실전 활용</li>
-                                    <li>원하는 결과를 얻는 프롬프트 작성 핵심 원리</li>
-                                    <li>AI 결과물 검증 및 팩트체크 워크플로우</li>
+                                    <li><i class="fa-solid fa-check"></i> ChatGPT vs Claude vs Gemini: 업무별 최적 도구 선택법</li>
+                                    <li><i class="fa-solid fa-check"></i> Genspark, Perplexity 등 검색 특화 AI 실전 활용</li>
+                                    <li><i class="fa-solid fa-check"></i> 원하는 결과를 얻는 프롬프트 작성 핵심 원리</li>
+                                    <li><i class="fa-solid fa-check"></i> AI 결과물 검증 및 팩트체크 워크플로우</li>
                                 </ul>
                             </div>
+                            <a href="#contact" class="modal-cta">
+                                <i class="fa-solid fa-paper-plane"></i> 이 프로그램 문의하기
+                            </a>
                         </div>
 
-                        <!-- 프로그램 2 -->
-                        <div class="program-detail" id="program-assistant">
-                            <div class="detail-header">
-                                <span class="detail-tag">업무 내재화</span>
-                                <h3 class="detail-title">나만의 AI 비서 만들기</h3>
-                                <p class="detail-desc">매번 같은 지시를 반복하지 마세요. 내 업무를 이해하는 전용 AI 비서를 직접 구축합니다.</p>
+                        <!-- 모달 내용: assistant -->
+                        <div class="modal-body" data-modal="assistant">
+                            <div class="modal-header">
+                                <div class="modal-icon"><i class="fa-solid fa-robot"></i></div>
+                                <span class="modal-tag">업무 내재화</span>
+                                <h3 class="modal-title">나만의 AI 비서 만들기</h3>
+                                <p class="modal-desc">매번 같은 지시를 반복하지 마세요. 내 업무를 이해하는 전용 AI 비서를 직접 구축합니다.</p>
                             </div>
-                            <div class="detail-meta">
-                                <div class="meta-chip"><i class="fa-solid fa-users"></i> 실무자, 팀 단위, 프리랜서</div>
-                                <div class="meta-chip"><i class="fa-solid fa-clock"></i> 2~4시간</div>
+                            <div class="modal-meta">
+                                <div class="meta-item"><i class="fa-solid fa-users"></i> 실무자, 팀 단위, 프리랜서</div>
+                                <div class="meta-item"><i class="fa-solid fa-clock"></i> 2~4시간</div>
                             </div>
-                            <div class="detail-content">
-                                <h4>핵심 내용</h4>
+                            <div class="modal-details">
+                                <h4><i class="fa-solid fa-list-check"></i> 핵심 내용</h4>
                                 <ul>
-                                    <li>ChatGPT GPTs로 반복 업무 전용 챗봇 만들기</li>
-                                    <li>Claude Projects로 문서 기반 AI 비서 구축</li>
-                                    <li>Gemini Gems로 Google 워크스페이스 연동 비서 제작</li>
-                                    <li>팀 공유용 AI 비서 배포 및 운영 노하우</li>
+                                    <li><i class="fa-solid fa-check"></i> ChatGPT GPTs로 반복 업무 전용 챗봇 만들기</li>
+                                    <li><i class="fa-solid fa-check"></i> Claude Projects로 문서 기반 AI 비서 구축</li>
+                                    <li><i class="fa-solid fa-check"></i> Gemini Gems로 Google 워크스페이스 연동 비서 제작</li>
+                                    <li><i class="fa-solid fa-check"></i> 팀 공유용 AI 비서 배포 및 운영 노하우</li>
                                 </ul>
                             </div>
+                            <a href="#contact" class="modal-cta">
+                                <i class="fa-solid fa-paper-plane"></i> 이 프로그램 문의하기
+                            </a>
                         </div>
 
-                        <!-- 프로그램 3 -->
-                        <div class="program-detail" id="program-specialized">
-                            <div class="detail-header">
-                                <span class="detail-tag">직무별 맞춤</span>
-                                <h3 class="detail-title">직무 특화 AI 실무</h3>
-                                <p class="detail-desc">디자이너에겐 디자인 AI를, 마케터에겐 콘텐츠 AI를. 직무에 딱 맞는 도구와 워크플로우를 집중 훈련합니다.</p>
+                        <!-- 모달 내용: specialized -->
+                        <div class="modal-body" data-modal="specialized">
+                            <div class="modal-header">
+                                <div class="modal-icon"><i class="fa-solid fa-briefcase"></i></div>
+                                <span class="modal-tag">직무별 맞춤</span>
+                                <h3 class="modal-title">직무 특화 AI 실무</h3>
+                                <p class="modal-desc">디자이너에겐 디자인 AI를, 마케터에겐 콘텐츠 AI를. 직무에 딱 맞는 도구와 워크플로우를 집중 훈련합니다.</p>
                             </div>
-                            <div class="detail-meta">
-                                <div class="meta-chip"><i class="fa-solid fa-users"></i> 디자이너, 마케터, 기획자, 관리자</div>
-                                <div class="meta-chip"><i class="fa-solid fa-clock"></i> 2~4시간</div>
+                            <div class="modal-meta">
+                                <div class="meta-item"><i class="fa-solid fa-users"></i> 디자이너, 마케터, 기획자, 관리자</div>
+                                <div class="meta-item"><i class="fa-solid fa-clock"></i> 2~4시간</div>
                             </div>
-                            <div class="detail-content">
-                                <h4>핵심 내용</h4>
+                            <div class="modal-details">
+                                <h4><i class="fa-solid fa-list-check"></i> 핵심 내용</h4>
                                 <ul>
-                                    <li><strong>디자이너</strong> Midjourney, Nanobanana 등 크리에이티브 워크플로우</li>
-                                    <li><strong>마케터</strong> AI 카피라이팅, 콘텐츠 기획, SNS 자동화</li>
-                                    <li><strong>기획자</strong> NotebookLM 문서 분석, 리서치 자동화</li>
-                                    <li><strong>관리자</strong> Apps Script 데이터 수집·정제·리포팅</li>
+                                    <li><i class="fa-solid fa-palette"></i> <strong>디자이너</strong> Midjourney, Nanobanana 등 크리에이티브 워크플로우</li>
+                                    <li><i class="fa-solid fa-bullhorn"></i> <strong>마케터</strong> AI 카피라이팅, 콘텐츠 기획, SNS 자동화</li>
+                                    <li><i class="fa-solid fa-lightbulb"></i> <strong>기획자</strong> NotebookLM 문서 분석, 리서치 자동화</li>
+                                    <li><i class="fa-solid fa-chart-line"></i> <strong>관리자</strong> Apps Script 데이터 수집·정제·리포팅</li>
                                 </ul>
                             </div>
+                            <a href="#contact" class="modal-cta">
+                                <i class="fa-solid fa-paper-plane"></i> 이 프로그램 문의하기
+                            </a>
                         </div>
 
-                        <!-- 프로그램 4 -->
-                        <div class="program-detail" id="program-cursor">
-                            <div class="detail-header">
-                                <span class="detail-tag">No-Code / Low-Code</span>
-                                <h3 class="detail-title">Cursor로 나만의 서비스 만들기</h3>
-                                <p class="detail-desc">코딩을 몰라도 괜찮습니다. AI 코딩 도구 Cursor로 아이디어를 실제 작동하는 서비스로 구현합니다.</p>
+                        <!-- 모달 내용: cursor -->
+                        <div class="modal-body" data-modal="cursor">
+                            <div class="modal-header">
+                                <div class="modal-icon"><i class="fa-solid fa-code"></i></div>
+                                <span class="modal-tag">No-Code / Low-Code</span>
+                                <h3 class="modal-title">Cursor로 나만의 서비스 만들기</h3>
+                                <p class="modal-desc">코딩을 몰라도 괜찮습니다. AI 코딩 도구 Cursor로 아이디어를 실제 작동하는 서비스로 구현합니다.</p>
                             </div>
-                            <div class="detail-meta">
-                                <div class="meta-chip"><i class="fa-solid fa-users"></i> 기획자, 1인 사업가, 비개발자</div>
-                                <div class="meta-chip"><i class="fa-solid fa-clock"></i> 3~4시간</div>
+                            <div class="modal-meta">
+                                <div class="meta-item"><i class="fa-solid fa-users"></i> 기획자, 1인 사업가, 비개발자</div>
+                                <div class="meta-item"><i class="fa-solid fa-clock"></i> 3~4시간</div>
                             </div>
-                            <div class="detail-content">
-                                <h4>핵심 내용</h4>
+                            <div class="modal-details">
+                                <h4><i class="fa-solid fa-list-check"></i> 핵심 내용</h4>
                                 <ul>
-                                    <li>Cursor 설치부터 기본 사용법 완전 정복</li>
-                                    <li>AI와 대화하며 웹페이지/간단한 앱 만들기</li>
-                                    <li>내 업무에 맞는 자동화 도구 직접 제작</li>
-                                    <li>배포까지: 만든 서비스를 세상에 공개하기</li>
+                                    <li><i class="fa-solid fa-check"></i> Cursor 설치부터 기본 사용법 완전 정복</li>
+                                    <li><i class="fa-solid fa-check"></i> AI와 대화하며 웹페이지/간단한 앱 만들기</li>
+                                    <li><i class="fa-solid fa-check"></i> 내 업무에 맞는 자동화 도구 직접 제작</li>
+                                    <li><i class="fa-solid fa-check"></i> 배포까지: 만든 서비스를 세상에 공개하기</li>
                                 </ul>
                             </div>
+                            <a href="#contact" class="modal-cta">
+                                <i class="fa-solid fa-paper-plane"></i> 이 프로그램 문의하기
+                            </a>
                         </div>
 
-                        <!-- 프로그램 5 -->
-                        <div class="program-detail" id="program-webpage">
-                            <div class="detail-header">
-                                <span class="detail-tag">Vibe Coding</span>
-                                <h3 class="detail-title">나만의 웹페이지 만들기</h3>
-                                <p class="detail-desc">브랜딩 페이지, 포트폴리오, 랜딩 페이지까지. AI와 대화하며 나만의 웹사이트를 만들고, 무료로 세상에 공개합니다.</p>
+                        <!-- 모달 내용: webpage -->
+                        <div class="modal-body" data-modal="webpage">
+                            <div class="modal-header">
+                                <div class="modal-icon"><i class="fa-solid fa-globe"></i></div>
+                                <span class="modal-tag">Vibe Coding</span>
+                                <h3 class="modal-title">나만의 웹페이지 만들기</h3>
+                                <p class="modal-desc">브랜딩 페이지, 포트폴리오, 랜딩 페이지까지. AI와 대화하며 나만의 웹사이트를 만들고, 무료로 세상에 공개합니다.</p>
                             </div>
-                            <div class="detail-meta">
-                                <div class="meta-chip"><i class="fa-solid fa-users"></i> 프리랜서, 1인 사업가, 취준생</div>
-                                <div class="meta-chip"><i class="fa-solid fa-clock"></i> 3~4시간</div>
-                                <div class="meta-chip highlight"><i class="fa-solid fa-gift"></i> 도메인 무료</div>
+                            <div class="modal-meta">
+                                <div class="meta-item"><i class="fa-solid fa-users"></i> 프리랜서, 1인 사업가, 취준생</div>
+                                <div class="meta-item"><i class="fa-solid fa-clock"></i> 3~4시간</div>
+                                <div class="meta-item highlight"><i class="fa-solid fa-gift"></i> 도메인 무료 제공</div>
                             </div>
-                            <div class="detail-content">
-                                <h4>핵심 내용</h4>
+                            <div class="modal-details">
+                                <h4><i class="fa-solid fa-list-check"></i> 핵심 내용</h4>
                                 <ul>
-                                    <li>AI로 웹페이지 기획하고 디자인 방향 잡기</li>
-                                    <li>Cursor로 바이브 코딩: 대화하며 코드 생성</li>
-                                    <li>브랜딩 페이지 / 포트폴리오 / 랜딩 페이지 실전 제작</li>
-                                    <li>GitHub Pages로 무료 도메인 배포 및 운영</li>
+                                    <li><i class="fa-solid fa-check"></i> AI로 웹페이지 기획하고 디자인 방향 잡기</li>
+                                    <li><i class="fa-solid fa-check"></i> Cursor로 바이브 코딩: 대화하며 코드 생성</li>
+                                    <li><i class="fa-solid fa-check"></i> 브랜딩 페이지 / 포트폴리오 / 랜딩 페이지 실전 제작</li>
+                                    <li><i class="fa-solid fa-check"></i> GitHub Pages로 무료 도메인 배포 및 운영</li>
                                 </ul>
                             </div>
+                            <a href="#contact" class="modal-cta">
+                                <i class="fa-solid fa-paper-plane"></i> 이 프로그램 문의하기
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -634,7 +719,7 @@
     </footer>
 
     <!-- External JavaScript | Development: js/main.js | Production: js/main.min.js -->
-    <script src="js/main.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

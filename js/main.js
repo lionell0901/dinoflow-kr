@@ -147,28 +147,92 @@ document.addEventListener('DOMContentLoaded', function () {
         el.classList.add('is-visible');
     });
 
-    // --- Program Tab Selector ---
-    const programTabs = document.querySelectorAll('.program-tab');
-    const programDetails = document.querySelectorAll('.program-detail');
+    // --- Program Card Modal ---
+    const programCards = document.querySelectorAll('.program-card');
+    const programModal = document.getElementById('program-modal');
+    const modalBodies = document.querySelectorAll('.modal-body');
+    const modalClose = document.querySelector('.modal-close');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
 
-    if (programTabs.length > 0) {
-        programTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const programId = tab.dataset.program;
+    // Open modal function
+    function openProgramModal(programId) {
+        if (!programModal) return;
 
-                // Update tabs - remove active from all
-                programTabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
+        // Hide all modal bodies first
+        modalBodies.forEach(body => body.classList.remove('active'));
 
-                // Update content panels - hide all, show selected
-                programDetails.forEach(detail => detail.classList.remove('active'));
-                const targetDetail = document.getElementById('program-' + programId);
-                if (targetDetail) {
-                    targetDetail.classList.add('active');
+        // Show the selected modal body
+        const targetBody = document.querySelector(`.modal-body[data-modal="${programId}"]`);
+        if (targetBody) {
+            targetBody.classList.add('active');
+        }
+
+        // Show modal
+        programModal.classList.add('active');
+        programModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        // Focus trap - focus on close button
+        if (modalClose) {
+            setTimeout(() => modalClose.focus(), 100);
+        }
+    }
+
+    // Close modal function
+    function closeProgramModal() {
+        if (!programModal) return;
+
+        programModal.classList.remove('active');
+        programModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+
+        // Return focus to the card that opened the modal
+        const activeCard = document.querySelector('.program-card:focus');
+        if (activeCard) activeCard.focus();
+    }
+
+    // Card click handlers
+    if (programCards.length > 0) {
+        programCards.forEach(card => {
+            // Click handler
+            card.addEventListener('click', () => {
+                const programId = card.dataset.program;
+                openProgramModal(programId);
+            });
+
+            // Keyboard handler (Enter/Space)
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const programId = card.dataset.program;
+                    openProgramModal(programId);
                 }
             });
         });
     }
+
+    // Close modal handlers
+    if (modalClose) {
+        modalClose.addEventListener('click', closeProgramModal);
+    }
+
+    if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', closeProgramModal);
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && programModal && programModal.classList.contains('active')) {
+            closeProgramModal();
+        }
+    });
+
+    // Close modal when clicking CTA link (scroll to contact)
+    document.querySelectorAll('.modal-cta').forEach(cta => {
+        cta.addEventListener('click', () => {
+            closeProgramModal();
+        });
+    });
 
     // --- History Filtering ---
     const filterBtns = document.querySelectorAll('.filter-btn');
