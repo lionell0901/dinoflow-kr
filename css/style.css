@@ -490,6 +490,10 @@ nav {
     transform: scale(0.8);
 }
 
+.slide img.logo-energinno {
+    transform: scale(1.1);
+}
+
 .slide:hover img.logo-hanwha,
 .slide:hover img.logo-thestory,
 .slide:hover img.logo-kukbo {
@@ -503,6 +507,10 @@ nav {
 .slide:hover img.logo-mizuho,
 .slide:hover img.logo-handys {
     transform: scale(0.9);
+}
+
+.slide:hover img.logo-energinno {
+    transform: scale(1.2);
 }
 
 @keyframes scroll {
