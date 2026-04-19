@@ -469,7 +469,7 @@ nav {
 
 /* Individual Logo Size Adjustments */
 .slide img.logo-hanwha {
-    transform: scale(1.3);
+    transform: scale(1.0);
 }
 
 .slide img.logo-mizuho {
@@ -500,7 +500,10 @@ nav {
     transform: scale(1.4);
 }
 
-.slide:hover img.logo-hanwha,
+.slide:hover img.logo-hanwha {
+    transform: scale(1.15);
+}
+
 .slide:hover img.logo-thestory,
 .slide:hover img.logo-kukbo {
     transform: scale(1.5);
