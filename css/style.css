@@ -433,9 +433,9 @@ nav {
 
 .logo-track {
     display: flex;
-    width: calc(120px * 14);
-    /* 120px width * 14 slides (7 unique * 2) */
-    animation: scroll 20s linear infinite;
+    width: calc(120px * 18);
+    /* 120px width * 18 slides (9 unique * 2) */
+    animation: scroll 26s linear infinite;
 }
 
 .slide {
@@ -501,11 +501,12 @@ nav {
 .slide img.logo-hanwha { transform: scale(0.95); }
 .slide img.logo-mizuho { transform: scale(0.85); }
 .slide img.logo-crenor { transform: scale(1.25); }
-.slide img.logo-thestory { transform: scale(1.05); }
+.slide img.logo-thestory { transform: scale(1.2); }
 .slide img.logo-kukbo { transform: scale(1.05); }
 .slide img.logo-handys { transform: scale(0.9); }
 .slide img.logo-energinno { transform: scale(0.95); }
 .slide img.logo-samsung { transform: scale(0.95); }
+.slide img.logo-adlike { transform: scale(1.15); }
 
 
 @keyframes scroll {
@@ -514,8 +515,8 @@ nav {
     }
 
     100% {
-        transform: translateX(calc(-120px * 7));
-        /* Move by one full set (7 slides) */
+        transform: translateX(calc(-120px * 9));
+        /* Move by one full set (9 slides) */
     }
 }
 
