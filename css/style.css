@@ -496,6 +496,10 @@ nav {
     transform: scale(1.1);
 }
 
+.slide img.logo-samsung {
+    transform: scale(0.9);
+}
+
 .slide:hover img.logo-hanwha,
 .slide:hover img.logo-thestory,
 .slide:hover img.logo-kukbo {
@@ -513,6 +517,10 @@ nav {
 
 .slide:hover img.logo-energinno {
     transform: scale(1.2);
+}
+
+.slide:hover img.logo-samsung {
+    transform: scale(1.0);
 }
 
 @keyframes scroll {

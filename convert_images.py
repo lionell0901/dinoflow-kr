@@ -9,7 +9,8 @@ images_to_convert = [
     ("images/IMG_8214.JPG", "images/IMG_8214.webp"),
     ("images/IMG_8705.JPG", "images/IMG_8705.webp"),
     ("images/IMG_0453.JPG", "images/IMG_0453.webp"),
-    ("images/IMG_8065 2.jpg", "images/IMG_8065_2.webp")
+    ("images/IMG_8065 2.jpg", "images/IMG_8065_2.webp"),
+    ("images/IMG_5196.JPG", "images/IMG_5196.webp")
 ]
 
 for input_path, output_path in images_to_convert:
