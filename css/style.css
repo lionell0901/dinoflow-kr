@@ -642,7 +642,6 @@ section:not(#hero)::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
     margin-bottom: 24px;
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
     border: 1px solid rgba(59, 130, 246, 0.2);
@@ -653,6 +652,19 @@ section:not(#hero)::before {
     transition: all 0.35s ease;
     position: relative;
 }
+
+/* Unified Lucide-style SVG icon sizing */
+.lucide-icon {
+    flex-shrink: 0;
+    stroke-width: 1.75;
+}
+
+.strength-icon .lucide-icon { width: 32px; height: 32px; }
+.card-icon .lucide-icon { width: 24px; height: 24px; }
+.modal-icon .lucide-icon { width: 32px; height: 32px; }
+.stat-icon .lucide-icon { width: 26px; height: 26px; }
+.profile-icon .lucide-icon { width: 24px; height: 24px; }
+.customize-icon.lucide-icon { width: 32px; height: 32px; }
 
 .strength-icon::after {
     content: '';
@@ -1218,11 +1230,7 @@ section:not(#hero)::before {
 }
 
 .customize-icon {
-    font-size: 1.8rem;
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent-primary);
     flex-shrink: 0;
 }
 
