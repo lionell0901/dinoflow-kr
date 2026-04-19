@@ -475,8 +475,8 @@ nav {
 }
 
 .slide img {
-    max-height: 40px;
-    max-width: 95%;
+    max-height: 36px;
+    max-width: 82%;
     width: auto;
     object-fit: contain;
     position: relative;
@@ -497,15 +497,15 @@ nav {
     opacity: 1;
 }
 
-/* Individual Logo Size Adjustments (visual balance in pill) */
-.slide img.logo-hanwha { transform: scale(1.1); }
-.slide img.logo-mizuho { transform: scale(1.0); }
-.slide img.logo-crenor { transform: scale(1.35); }
-.slide img.logo-thestory { transform: scale(1.15); }
-.slide img.logo-kukbo { transform: scale(1.15); }
-.slide img.logo-handys { transform: scale(0.95); }
-.slide img.logo-energinno { transform: scale(1.05); }
-.slide img.logo-samsung { transform: scale(1.2); }
+/* Individual Logo Size Adjustments (visual balance in pill, no overflow) */
+.slide img.logo-hanwha { transform: scale(0.95); }
+.slide img.logo-mizuho { transform: scale(0.85); }
+.slide img.logo-crenor { transform: scale(1.25); }
+.slide img.logo-thestory { transform: scale(1.05); }
+.slide img.logo-kukbo { transform: scale(1.05); }
+.slide img.logo-handys { transform: scale(0.9); }
+.slide img.logo-energinno { transform: scale(0.95); }
+.slide img.logo-samsung { transform: scale(0.95); }
 
 
 @keyframes scroll {
