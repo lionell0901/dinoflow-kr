@@ -445,86 +445,48 @@ nav {
     align-items: center;
     justify-content: center;
     transition: var(--transition-smooth);
-    padding: 0 15px;
-    /* Add spacing between logos */
+    padding: 0 6px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* White pill background (brand-wall pattern) */
+.slide::before {
+    content: '';
+    position: absolute;
+    inset: 4px 6px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    z-index: 0;
 }
 
 .slide img {
-    max-height: 40px;
+    max-height: 34px;
     max-width: 100%;
     width: auto;
     object-fit: contain;
-    /* Uniform Bright White Style for Dark Theme */
-    filter: grayscale(100%) brightness(0) invert(1);
-    opacity: 0.8;
+    position: relative;
+    z-index: 1;
     transition: all 0.3s ease;
 }
 
-.slide:hover img {
-    /* On hover: Restore original color (if desired) or just brighter */
-    opacity: 1;
-    filter: grayscale(0%) brightness(1);
-    transform: scale(1.1);
+.slide:hover::before {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
-/* Individual Logo Size Adjustments */
-.slide img.logo-hanwha {
-    transform: scale(1.0);
-}
+/* Individual Logo Size Adjustments (pill-aware, <=1.2 to stay inside pill) */
+.slide img.logo-hanwha { transform: scale(1.0); }
+.slide img.logo-mizuho { transform: scale(1.0); }
+.slide img.logo-crenor { transform: scale(1.1); }
+.slide img.logo-thestory { transform: scale(1.0); }
+.slide img.logo-kukbo { transform: scale(1.0); }
+.slide img.logo-handys { transform: scale(0.95); }
+.slide img.logo-energinno { transform: scale(1.0); }
+.slide img.logo-samsung { transform: scale(1.0); }
 
-.slide img.logo-mizuho {
-    transform: scale(0.8);
-}
-
-.slide img.logo-crenor {
-    transform: scale(1.8);
-}
-
-.slide img.logo-thestory {
-    transform: scale(1.4);
-}
-
-.slide img.logo-kukbo {
-    transform: scale(1.4);
-}
-
-.slide img.logo-handys {
-    transform: scale(0.8);
-}
-
-.slide img.logo-energinno {
-    transform: scale(1.1);
-}
-
-.slide img.logo-samsung {
-    transform: scale(1.4);
-}
-
-.slide:hover img.logo-hanwha {
-    transform: scale(1.15);
-}
-
-.slide:hover img.logo-thestory,
-.slide:hover img.logo-kukbo {
-    transform: scale(1.5);
-}
-
-.slide:hover img.logo-crenor {
-    transform: scale(1.9);
-}
-
-.slide:hover img.logo-mizuho,
-.slide:hover img.logo-handys {
-    transform: scale(0.9);
-}
-
-.slide:hover img.logo-energinno {
-    transform: scale(1.2);
-}
-
-.slide:hover img.logo-samsung {
-    transform: scale(1.5);
-}
 
 @keyframes scroll {
     0% {
