@@ -211,10 +211,26 @@ nav {
 
 .logo {
     display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     line-height: 1;
     letter-spacing: -0.5px;
+}
+
+.logo-mark {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    /* 다크 네이비 → 화이트로 색상 반전, 브랜드 글로우 추가 */
+    filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(96, 165, 250, 0.45));
+    flex-shrink: 0;
+}
+
+.logo-text {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .logo-main {
@@ -2187,7 +2203,8 @@ section:not(#hero)::before {
     width: 72px;
     height: 72px;
     object-fit: contain;
-    filter: drop-shadow(0 6px 18px rgba(96, 165, 250, 0.3));
+    /* 다크 배경 가시성 확보 */
+    filter: brightness(0) invert(1) drop-shadow(0 6px 18px rgba(96, 165, 250, 0.45));
 }
 
 .company-headline {
@@ -2523,7 +2540,8 @@ footer {
     width: 48px;
     height: 48px;
     object-fit: contain;
-    filter: drop-shadow(0 2px 8px rgba(96, 165, 250, 0.25));
+    /* 다크 배경에서 가시성 확보를 위한 화이트 반전 + 브랜드 글로우 */
+    filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(96, 165, 250, 0.4));
 }
 
 .footer-brand-name {
@@ -3334,6 +3352,15 @@ footer {
  * DinoFlow Brand Components - Responsive
  * =========================================== */
 @media (max-width: 768px) {
+    .logo {
+        gap: 8px;
+    }
+
+    .logo-mark {
+        width: 30px;
+        height: 30px;
+    }
+
     .logo-main {
         font-size: 1.35rem;
     }
