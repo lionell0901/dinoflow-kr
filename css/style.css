@@ -7,8 +7,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    /* Color Palette - Deep & Sophisticated */
-    --bg-main: #0B0F19;
+    /* Color Palette - Deep & Sophisticated (hub.dinoflow.kr 기준 정렬) */
+    --bg-main: #020617;
     /* Very deep blue-black */
     --bg-secondary: #111827;
 
@@ -17,18 +17,18 @@
     --glass-border: rgba(255, 255, 255, 0.08);
     --glass-highlight: rgba(255, 255, 255, 0.03);
 
-    /* Accents - Gradient based */
-    --accent-primary: #3B82F6;
-    --accent-secondary: #8B5CF6;
-    --accent-glow: rgba(59, 130, 246, 0.5);
+    /* Accents - Gradient based (hub 토큰: violet #7c3aed / blue #2563eb) */
+    --accent-primary: #2563eb;
+    --accent-secondary: #7c3aed;
+    --accent-glow: rgba(124, 58, 237, 0.5);
 
     /* DinoFlow Brand Tokens */
     --brand-navy: #0A2540;
     --brand-navy-soft: rgba(10, 37, 64, 0.55);
     --brand-accent: #1E40AF;
 
-    --gradient-main: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
-    --gradient-text: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
+    --gradient-main: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+    --gradient-text: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
     --gradient-dark: linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
 
     /* Text Colors */
@@ -827,8 +827,8 @@ section:not(#hero)::before {
 }
 
 /* Card accent colors */
-.program-card[data-program="literacy"] { --card-accent: #3B82F6; }
-.program-card[data-program="assistant"] { --card-accent: #8B5CF6; }
+.program-card[data-program="literacy"] { --card-accent: #2563eb; }
+.program-card[data-program="assistant"] { --card-accent: #7c3aed; }
 .program-card[data-program="specialized"] { --card-accent: #10B981; }
 .program-card[data-program="cursor"] { --card-accent: #F59E0B; }
 .program-card[data-program="webpage"] { --card-accent: #EC4899; }
