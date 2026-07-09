@@ -15,3 +15,6 @@ images/backup/
 # Development files (optional - uncomment if you want to exclude from git)
 # css/style.css
 # js/main.js
+
+# hub 라이브 데이터 로컬 테스트용 (배포 시엔 hub.dinoflow.kr/api/summary.json 사용)
+summary.json

@@ -4,6 +4,9 @@
  * Description: Interactive functionality for portfolio website
  */
 
+// JS 로드 표시 — 스크롤 리빌(.fade-in)은 .js가 있을 때만 숨김 시작 (no-JS 폴백)
+document.documentElement.classList.add('js');
+
 document.addEventListener('DOMContentLoaded', function () {
     // --- Mobile Menu Toggle ---
     const hamburger = document.querySelector('.hamburger');
@@ -234,35 +237,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // --- History Filtering ---
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const historyCards = document.querySelectorAll('.showcase-card');
-
-    if (filterBtns.length > 0) {
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
-                // Add active class to clicked button
-                btn.classList.add('active');
-                btn.setAttribute('aria-pressed', 'true');
-
-                const filterValue = btn.getAttribute('data-filter');
-
-                historyCards.forEach(card => {
-                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                        card.style.display = 'flex';
-                        // Re-trigger animation
-                        card.classList.remove('is-visible');
-                        setTimeout(() => card.classList.add('is-visible'), 50);
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-    }
-
     // --- EmailJS Contact Form ---
     // Initialize EmailJS with your Public Key
     (function () {
@@ -346,3 +320,112 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+// ============================================
+// Hub Live Track Record
+// hub.dinoflow.kr/api/summary.json 을 읽어
+// 실적 카운터·최근 강의·예정 뱃지를 갱신한다.
+// fetch 실패 시 HTML에 하드코딩된 값이 그대로 남는다 (graceful fallback).
+// ============================================
+(function () {
+    if (!('fetch' in window)) return;
+
+    var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    var SUMMARY_URL = isLocal ? './summary.json' : 'https://hub.dinoflow.kr/api/summary.json';
+    var HUB_LECTURES_URL = 'https://hub.dinoflow.kr/lectures';
+    var RECENT_DISPLAY_LIMIT = 3;
+
+    fetch(SUMMARY_URL, { mode: 'cors' })
+        .then(function (res) {
+            if (!res.ok) throw new Error('summary fetch failed: ' + res.status);
+            return res.json();
+        })
+        .then(applySummary)
+        .catch(function () { /* 정적 폴백 유지 */ });
+
+    function applySummary(data) {
+        if (!data || !data.totals) return;
+        var totals = data.totals;
+
+        // 1) 실적 카운터 (내림 처리로 "이상(+)" 의미 유지)
+        if (isPositive(totals.hours)) {
+            setStat('hours', Math.floor(totals.hours).toLocaleString('ko-KR') + '+');
+        }
+        if (isPositive(totals.attendees)) {
+            setStat('students', totals.attendees.toLocaleString('ko-KR') + '+');
+        }
+
+        // 2) 최근 진행 강의 스트립
+        renderRecent(data.recent);
+
+        // 3) 스트립 푸터 링크: 예정 강의 수 + 전체 기록 수
+        var footerLink = document.getElementById('recent-footer-link');
+        if (footerLink) {
+            var parts = [];
+            if (data.upcoming && isPositive(data.upcoming.count)) {
+                parts.push('다가오는 강의 ' + data.upcoming.count + '건 예정');
+            }
+            if (isPositive(totals.sessions)) {
+                parts.push('전체 ' + totals.sessions.toLocaleString('ko-KR') + '회 기록 보기 ↗');
+            }
+            if (parts.length) {
+                footerLink.textContent = parts.join(' · ');
+            }
+        }
+    }
+
+    function isPositive(n) {
+        return typeof n === 'number' && n > 0;
+    }
+
+    function setStat(key, text) {
+        document.querySelectorAll('[data-stat="' + key + '"]').forEach(function (el) {
+            el.textContent = text;
+        });
+    }
+
+    function renderRecent(recent) {
+        if (!Array.isArray(recent) || recent.length === 0) return;
+        var wrap = document.getElementById('recent-lectures');
+        var list = document.getElementById('recent-list');
+        if (!wrap || !list) return;
+
+        recent.slice(0, RECENT_DISPLAY_LIMIT).forEach(function (lec) {
+            var li = document.createElement('li');
+            li.className = 'recent-item';
+
+            var a = document.createElement('a');
+            a.href = HUB_LECTURES_URL;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.appendChild(span('recent-date', formatDate(lec.date)));
+            a.appendChild(span('recent-client', lec.client || ''));
+            a.appendChild(span('recent-program', lec.program || ''));
+            a.appendChild(span('recent-meta', metaText(lec)));
+
+            li.appendChild(a);
+            list.appendChild(li);
+        });
+
+        wrap.hidden = false;
+    }
+
+    function span(cls, text) {
+        var el = document.createElement('span');
+        el.className = cls;
+        el.textContent = text;
+        return el;
+    }
+
+    function metaText(lec) {
+        var parts = [];
+        if (lec.industry) parts.push(lec.industry);
+        if (isPositive(lec.hours)) parts.push(lec.hours + '시간');
+        return parts.join(' · ');
+    }
+
+    function formatDate(iso) {
+        if (!iso || iso.length < 10) return iso || '';
+        return iso.slice(2, 10).replace(/-/g, '.');
+    }
+})();
