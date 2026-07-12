@@ -157,7 +157,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .client-strip { padding-block: 26px 30px; background: var(--white); border-bottom: 1px solid var(--line); }
 .client-strip p { margin-bottom: 16px; color: var(--muted); font-size: 0.75rem; font-weight: 700; text-align: center; }
 .client-logos { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: center; gap: 28px; }
-.client-logos img { width: 100%; height: 35px; object-fit: contain; filter: grayscale(1); opacity: 0.68; }
+.client-logo { display: flex; align-items: center; justify-content: center; height: 48px; overflow: hidden; }
+.client-logo img { width: auto; max-width: 100%; height: 35px; object-fit: contain; filter: grayscale(1); opacity: 0.68; }
+.client-logo-kofa img { width: min(150px, 100%); height: auto; }
+.client-logo-knkbo img { width: min(170px, 100%); height: auto; }
 
 .section-heading { max-width: 720px; }
 .kicker { margin-bottom: var(--space-4); color: var(--coral); }
@@ -368,7 +371,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .hero-facts div { min-width: 0; flex: 1; padding-right: 12px; }
     .hero-facts div + div { padding-left: 12px; }
     .hero-facts dd { font-size: 1rem; }
-    .client-logos { grid-template-columns: repeat(3, 1fr); gap: 20px 26px; }
+    .client-logos { grid-template-columns: repeat(2, 1fr); gap: 24px 28px; }
     .client-logos img { height: 28px; }
     .section-heading h2, .about-copy h2, .contact-copy h2 { font-size: 2.45rem; }
     .fit-grid { grid-template-columns: 1fr; }
