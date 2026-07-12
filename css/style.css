@@ -337,7 +337,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .program-content { padding-left: 86px; grid-template-columns: 1fr; gap: 20px; }
     .program-output { grid-column: 1; }
     .process-layout, .contact-layout { gap: 5%; }
-    .photo-grid { height: 520px; }
+    .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1.35fr repeat(2, 0.8fr); height: 720px; }
+    .photo-grid .photo-main { grid-column: 1 / 3; grid-row: 1; }
     .evidence-grid { gap: 32px; }
     .about-layout { gap: 6%; }
     .footer-grid { gap: 32px; }
@@ -394,8 +395,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .process-layout { grid-template-columns: 1fr; gap: 44px; }
     .reference-heading { align-items: flex-start; flex-direction: column; }
     .hero-image { object-position: 42% 50%; }
-    .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1.35fr repeat(2, 0.8fr); height: 720px; }
-    .photo-grid .photo-main { grid-column: 1 / 3; grid-row: 1; }
     .evidence-grid { grid-template-columns: 1fr; }
     .about-layout { grid-template-columns: 0.8fr 1.2fr; gap: 32px; }
     .about-photo { height: 460px; }
