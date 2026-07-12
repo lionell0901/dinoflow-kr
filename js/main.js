@@ -95,47 +95,178 @@ function setupContactForm() {
     var message = document.getElementById('form-message');
     if (!form || !message) return;
 
-    function showMessage(text, type, emailHref) {
+    var submitButton = form.querySelector('.submit-button');
+    var originalLabel = submitButton ? submitButton.textContent : '문의 내용 보내기';
+    var collectionConsent = document.getElementById('privacy-consent');
+    var overseasConsent = document.getElementById('overseas-consent');
+    var inFlight = false;
+    var emailClientReady = false;
+    var publicKey = 'URK5IT-ga48mugcnf';
+
+    if (window.emailjs && typeof window.emailjs.init === 'function') {
+        try {
+            window.emailjs.init({
+                publicKey: publicKey,
+                blockHeadless: true,
+                limitRate: { id: 'dinoflow-contact', throttle: 10000 }
+            });
+            emailClientReady = true;
+        } catch (error) {
+            emailClientReady = false;
+        }
+    }
+    if (overseasConsent) overseasConsent.required = emailClientReady;
+
+    function showMessage(text, type, includeAlternatives, emailHref) {
         message.hidden = false;
         message.className = 'form-message ' + type;
         message.replaceChildren(document.createTextNode(text));
-        if (emailHref) {
+        if (includeAlternatives) {
             message.appendChild(document.createTextNode(' '));
+            var kakao = document.createElement('a');
+            kakao.href = 'https://open.kakao.com/o/suYsYaxf';
+            kakao.target = '_blank';
+            kakao.rel = 'noopener noreferrer';
+            kakao.textContent = '카카오톡 상담';
+            message.appendChild(kakao);
+            message.appendChild(document.createTextNode(' 또는 '));
             var email = document.createElement('a');
-            email.href = emailHref;
-            email.textContent = '이메일 앱 다시 열기';
+            email.href = emailHref || 'mailto:godino2895@gmail.com';
+            email.textContent = '이메일로 보내기';
             message.appendChild(email);
+            message.appendChild(document.createTextNode('를 이용해주세요.'));
         }
         message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
+    function getValue(id) {
+        var field = document.getElementById(id);
+        return field ? field.value.trim() : '';
+    }
+
+    function createInquiryId() {
+        var today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        var random = '';
+        if (window.crypto && typeof window.crypto.getRandomValues === 'function') {
+            var bytes = new Uint8Array(4);
+            window.crypto.getRandomValues(bytes);
+            random = Array.from(bytes, function (value) {
+                return value.toString(16).padStart(2, '0');
+            }).join('').toUpperCase();
+        } else {
+            random = Math.random().toString(16).slice(2, 10).toUpperCase().padEnd(8, '0');
+        }
+        return 'DF-' + today + '-' + random;
+    }
+
+    function buildFallbackEmailHref(inquiryId) {
+        var lines = [
+            '접수번호: ' + inquiryId,
+            '',
+            '자동 문의 전송에 실패해 이메일로 문의드립니다.',
+            '문의 내용을 아래에 입력해주세요.'
+        ];
+        return 'mailto:godino2895@gmail.com?subject=' +
+            encodeURIComponent('[기업 교육 문의] ' + inquiryId) +
+            '&body=' + encodeURIComponent(lines.join('\n'));
+    }
+
+    ['name', 'company', 'email', 'message'].forEach(function (id) {
+        var field = document.getElementById(id);
+        if (!field) return;
+        field.addEventListener('input', function () { field.setCustomValidity(''); });
+    });
+
     form.addEventListener('submit', function (event) {
         event.preventDefault();
+        if (inFlight) return;
         if (!form.reportValidity()) return;
 
-        var name = document.getElementById('name').value.trim();
-        var company = document.getElementById('company').value.trim();
-        var lines = [
-            '담당자 이름: ' + name,
-            '기업·기관명: ' + company,
-            '업무 이메일: ' + document.getElementById('email').value.trim(),
-            '연락처: ' + (document.getElementById('phone').value.trim() || '미입력'),
-            '예상 인원: ' + (document.getElementById('participants').value.trim() || '미정'),
-            '희망 일정: ' + (document.getElementById('schedule').value.trim() || '미정'),
-            '',
-            '교육 대상과 기대하는 내용:',
-            document.getElementById('message').value.trim()
-        ];
-        var emailHref = 'mailto:godino2895@gmail.com?subject=' +
-            encodeURIComponent('[기업 교육 문의] ' + company + ' · ' + name) +
-            '&body=' + encodeURIComponent(lines.join('\n'));
+        var invalidField = null;
+        ['name', 'company', 'email', 'message'].some(function (id) {
+            var field = document.getElementById(id);
+            if (!field || field.value.trim()) return false;
+            field.setCustomValidity('공백을 제외한 내용을 입력해주세요.');
+            invalidField = field;
+            return true;
+        });
+        if (invalidField) {
+            invalidField.reportValidity();
+            return;
+        }
 
-        showMessage(
-            '이메일 앱이 열리면 작성 내용을 확인한 뒤 전송해주세요. 열리지 않으면 아래 링크를 눌러주세요.',
-            'notice',
-            emailHref
-        );
-        window.location.href = emailHref;
+        var honeypot = document.getElementById('contact-website');
+        if (honeypot && honeypot.value) {
+            showMessage('자동 입력이 감지되어 전송하지 않았습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.', 'error', false);
+            return;
+        }
+
+        var inquiryId = createInquiryId();
+        var emailHref = buildFallbackEmailHref(inquiryId);
+        if (!emailClientReady || !window.emailjs || typeof window.emailjs.send !== 'function') {
+            showMessage('자동 문의 전송 서비스를 불러오지 못했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
+            return;
+        }
+
+        inFlight = true;
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = '전송 중입니다...';
+        }
+        form.setAttribute('aria-busy', 'true');
+        message.hidden = true;
+
+        var submittedAt = new Date().toISOString();
+        var templateParams = {
+            from_name: getValue('name'),
+            from_email: getValue('email'),
+            phone: getValue('phone') || '미입력',
+            company: getValue('company'),
+            participants: getValue('participants') || '미정',
+            schedule: getValue('schedule') || '미정',
+            message: '[접수번호 ' + inquiryId + ']\n' + getValue('message'),
+            inquiry_id: inquiryId,
+            consent_at: submittedAt,
+            collection_consent: collectionConsent && collectionConsent.checked ? '동의' : '미동의',
+            collection_consent_at: submittedAt,
+            overseas_transfer_consent: overseasConsent && overseasConsent.checked ? '동의' : '미동의',
+            overseas_transfer_consent_at: submittedAt,
+            policy_version: '2026-07-12',
+            source_url: window.location.origin + window.location.pathname
+        };
+
+        var slowNoticeId = window.setTimeout(function () {
+            showMessage('전송 확인이 지연되고 있습니다. 중복 접수를 피하기 위해 잠시만 기다려주세요.', 'notice', false);
+        }, 15000);
+        var sendRequest = Promise.resolve().then(function () {
+            return window.emailjs.send('service_88wyxr7', 'template_10s18ru', templateParams);
+        });
+
+        sendRequest
+            .then(function () {
+                form.reset();
+                showMessage('문의가 접수되었습니다. 접수번호 ' + inquiryId + ' · 영업일 1일 이내에 회신드리겠습니다.', 'success', false);
+            })
+            .catch(function (error) {
+                if (error && Number(error.status) === 412) {
+                    showMessage('문의 전송 서비스 연결이 만료되었습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
+                    return;
+                }
+                if (error && Number(error.status) === 429) {
+                    showMessage('요청이 잠시 많아 자동 접수하지 못했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
+                    return;
+                }
+                showMessage('문의 전송에 실패했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
+            })
+            .finally(function () {
+                window.clearTimeout(slowNoticeId);
+                form.removeAttribute('aria-busy');
+                inFlight = false;
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalLabel;
+                }
+            });
     });
 }
 

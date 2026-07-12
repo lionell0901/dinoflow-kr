@@ -40,6 +40,8 @@ body {
     letter-spacing: 0;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    word-break: keep-all;
+    overflow-wrap: break-word;
     overflow-x: hidden;
 }
 body.menu-open { overflow: hidden; }
@@ -131,6 +133,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .eyebrow { margin-bottom: var(--space-4); color: #e7c87c; }
 .hero h1 { max-width: 780px; font-size: 4.35rem; line-height: 1.08; font-weight: 790; }
 .hero-lead { max-width: 660px; margin-top: var(--space-6); color: #e4eae7; font-size: 1.2rem; line-height: 1.7; }
+.hero-lead span { display: block; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8); }
 .button {
     display: inline-flex;
@@ -274,7 +277,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .contact { color: var(--white); background: var(--forest-dark); }
 .contact-layout { display: grid; grid-template-columns: 0.78fr 1.22fr; gap: 8%; align-items: start; }
 .contact .kicker { color: #e7c87c; }
-.contact-copy h2 { font-size: 3rem; line-height: 1.2; }
+.contact-copy h2 { font-size: 2.85rem; line-height: 1.2; }
 .contact-copy > p:not(.kicker) { margin-top: 20px; color: #c7d8d2; }
 .contact-expectations { margin-top: 34px; border-top: 1px solid #3f6a60; }
 .contact-expectations li { display: grid; grid-template-columns: 72px 1fr; gap: 12px; padding-block: 12px; border-bottom: 1px solid #3f6a60; }
@@ -283,7 +286,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .contact-alt { display: grid; gap: 4px; margin-top: 32px; }
 .contact-alt span { color: #8fb3a7; font-size: 0.75rem; font-weight: 700; }
 .contact-alt a { display: inline-flex; align-items: center; width: fit-content; min-height: 44px; padding-block: 7px; color: var(--white); font-size: 0.875rem; text-decoration: underline; text-underline-offset: 4px; }
-.contact-form { padding: 36px; color: var(--ink); background: var(--white); border-radius: 6px; }
+.contact-form { position: relative; padding: 36px; color: var(--ink); background: var(--white); border-radius: 6px; }
+.form-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .form-field { display: grid; gap: 7px; margin-bottom: 18px; }
 .form-field label { font-size: 0.8rem; font-weight: 750; }
@@ -303,9 +307,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .form-field input:hover, .form-field textarea:hover { border-color: var(--forest); }
 .form-field input:focus, .form-field textarea:focus { background: var(--white); }
 .form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); opacity: 1; }
+.consent-group { display: grid; gap: 8px; }
 .privacy-consent { display: flex; align-items: flex-start; gap: 10px; color: var(--ink-soft); font-size: 0.75rem; line-height: 1.55; }
 .privacy-consent input { flex: 0 0 auto; width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--forest); }
 .privacy-consent a { color: var(--forest); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.privacy-consent a, .form-message a { white-space: nowrap; }
 .form-delivery-note { margin: 14px 0 0; color: var(--muted); font-size: 0.75rem; line-height: 1.5; }
 .submit-button { width: 100%; margin-top: 22px; color: var(--white); background: var(--coral); }
 .submit-button:hover { background: #b94c33; }
