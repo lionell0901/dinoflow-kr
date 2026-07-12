@@ -298,7 +298,7 @@
                         <a href="mailto:godino2895@gmail.com">godino2895@gmail.com</a>
                     </div>
                 </div>
-                <form id="contact-form" class="contact-form reveal" action="mailto:godino2895@gmail.com" method="post" enctype="text/plain">
+                <form id="contact-form" class="contact-form reveal">
                     <div class="form-honeypot" aria-hidden="true"><label for="contact-website">웹사이트</label><input type="text" id="contact-website" name="contact_website" tabindex="-1" autocomplete="off"></div>
                     <div class="form-row">
                         <div class="form-field"><label for="name">담당자 이름 <span aria-hidden="true">*</span></label><input type="text" id="name" name="name" autocomplete="name" required maxlength="50"></div>
@@ -318,7 +318,8 @@
                         <label class="privacy-consent"><input type="checkbox" id="overseas-consent" name="overseas_transfer_consent" value="agreed"><span>EmailJS(미국 서버)를 통한 개인정보 국외 전송에 동의합니다. <a href="https://blog.dinoflow.kr/privacy#overseas-transfer" target="_blank" rel="noopener noreferrer">내용 보기</a></span></label>
                     </div>
                     <p class="form-delivery-note">두 항목 동의 후 문의 내용이 자동으로 전송됩니다.</p>
-                    <button type="submit" class="button submit-button">문의 내용 보내기</button>
+                    <button type="button" class="button submit-button">문의 내용 보내기</button>
+                    <noscript><p class="form-message notice">자동 문의 접수에는 JavaScript가 필요합니다. <a href="mailto:godino2895@gmail.com">이메일로 문의하기</a></p></noscript>
                     <div id="form-message" class="form-message" role="status" aria-live="polite" hidden></div>
                 </form>
             </div>
@@ -332,6 +333,6 @@
             <div class="footer-business"><p>DinoFlow 디노플로우 · 대표 고윤재</p><p>사업자등록번호 699-33-01694 · 서울특별시</p><p>&copy; 2026 DinoFlow. All rights reserved.</p></div>
         </div>
     </footer>
-    <script src="/js/main.js?v=20260712-5"></script>
+    <script src="/js/main.js?v=20260712-6"></script>
 </body>
 </html>

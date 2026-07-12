@@ -103,6 +103,8 @@ function setupContactForm() {
     var emailClientReady = false;
     var publicKey = 'URK5IT-ga48mugcnf';
 
+    if (submitButton) submitButton.type = 'submit';
+
     if (window.emailjs && typeof window.emailjs.init === 'function') {
         try {
             window.emailjs.init({
