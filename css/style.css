@@ -238,11 +238,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .recent-header h3 { font-size: 1rem; }
 .recent-header span { padding: 3px 7px; color: var(--danger); background: var(--coral-pale); font-size: 0.65rem; font-weight: 800; border-radius: 3px; }
 .recent-list { border-top: 1px solid var(--line); }
-.recent-item a, .recent-fallback { display: grid; grid-template-columns: 86px 1fr 130px; gap: 12px; align-items: center; padding-block: 13px; border-bottom: 1px solid var(--line); }
+.recent-item a, .recent-fallback { display: grid; grid-template-columns: 82px 132px minmax(0, 1fr); gap: 12px; align-items: center; padding-block: 13px; border-bottom: 1px solid var(--line); }
 .recent-item a > *, .recent-fallback > * { min-width: 0; overflow-wrap: anywhere; }
 .recent-item span, .recent-fallback span { color: var(--muted); font-size: 0.75rem; }
 .recent-client, .recent-fallback strong { color: var(--ink) !important; font-size: 0.85rem !important; font-weight: 750; }
-.recent-program, .recent-meta, .recent-fallback small { color: var(--muted); font-size: 0.75rem; text-align: right; }
+.recent-program, .recent-meta, .recent-fallback small { color: var(--muted); font-size: 0.75rem; text-align: left; }
+.recent-program { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-height: 1.45; }
 .recent-lectures > a { display: inline-flex; min-height: 44px; align-items: center; margin-top: 12px; color: var(--forest); font-size: 0.8rem; font-weight: 800; }
 
 .about { background: var(--white); }
@@ -300,6 +301,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .submit-button:disabled { cursor: wait; opacity: 0.65; transform: none; }
 .form-message { margin-top: 14px; padding: 12px 14px; border-radius: 4px; font-size: 0.8rem; }
 .form-message.success { color: #0d5736; background: #d9efe4; }
+.form-message.notice { color: var(--forest-dark); background: var(--forest-pale); }
 .form-message.error { color: #84291f; background: #f5ddd8; }
 .form-message a { font-weight: 750; text-decoration: underline; text-underline-offset: 3px; }
 

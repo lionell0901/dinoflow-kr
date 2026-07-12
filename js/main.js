@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var header = document.getElementById('header');
     var menuButton = document.querySelector('.menu-button');
     var navLinks = document.getElementById('primary-navigation');
+    var mainContent = document.getElementById('main-content');
+    var footer = document.querySelector('.site-footer');
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function setMenu(open) {
@@ -12,6 +14,14 @@ document.addEventListener('DOMContentLoaded', function () {
         menuButton.querySelector('.sr-only').textContent = open ? '메뉴 닫기' : '메뉴 열기';
         navLinks.classList.toggle('active', open);
         document.body.classList.toggle('menu-open', open);
+        if (mainContent) mainContent.toggleAttribute('inert', open);
+        if (footer) footer.toggleAttribute('inert', open);
+        if (open) {
+            window.setTimeout(function () {
+                var firstLink = navLinks.querySelector('a');
+                if (firstLink) firstLink.focus();
+            }, 0);
+        }
     }
 
     if (menuButton && navLinks) {
@@ -121,8 +131,8 @@ function setupContactForm() {
             '&body=' + encodeURIComponent(lines.join('\n'));
 
         showMessage(
-            '이메일 앱을 열었습니다. 작성 내용을 확인한 뒤 전송해주세요.',
-            'success',
+            '이메일 앱이 열리면 작성 내용을 확인한 뒤 전송해주세요. 열리지 않으면 아래 링크를 눌러주세요.',
+            'notice',
             emailHref
         );
         window.location.href = emailHref;
