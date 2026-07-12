@@ -1,1 +1,13 @@
 images/reference-candidates/
+images/backup/
+
+# Unoptimized source photos; the site uses metadata-free WebP derivatives.
+images/IMG_0453.JPG
+images/IMG_1747.JPEG
+images/IMG_3092.jpg
+images/IMG_8065 2.jpg
+images/IMG_8214.JPG
+images/IMG_8268.JPG
+images/IMG_8705.JPG
+images/bank.JPG
+images/profile.jpg
