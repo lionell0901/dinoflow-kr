@@ -3,8 +3,6 @@ from PIL import Image
 
 images_to_convert = [
     ("images/profile_0826.png", "images/profile_0826.webp"),
-    ("images/hanhwa.jpeg", "images/hanhwa.webp"),
-    ("images/IMG_0036.JPG", "images/IMG_0036.webp"),
     ("images/IMG_1747.JPEG", "images/IMG_1747.webp"),
     ("images/IMG_8214.JPG", "images/IMG_8214.webp"),
     ("images/IMG_8705.JPG", "images/IMG_8705.webp"),
