@@ -39,7 +39,6 @@
       "areaServed": "KR"
     }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">본문으로 바로가기</a>
@@ -281,7 +280,7 @@
                         <a href="mailto:godino2895@gmail.com">godino2895@gmail.com</a>
                     </div>
                 </div>
-                <form id="contact-form" class="contact-form reveal" method="post">
+                <form id="contact-form" class="contact-form reveal" action="mailto:godino2895@gmail.com" method="post" enctype="text/plain">
                     <div class="form-row">
                         <div class="form-field"><label for="name">담당자 이름 <span aria-hidden="true">*</span></label><input type="text" id="name" name="name" autocomplete="name" required maxlength="50"></div>
                         <div class="form-field"><label for="company">기업·기관명 <span aria-hidden="true">*</span></label><input type="text" id="company" name="company" autocomplete="organization" required maxlength="100"></div>
@@ -296,7 +295,8 @@
                     </div>
                     <div class="form-field"><label for="message">교육 대상과 기대하는 내용 <span aria-hidden="true">*</span></label><textarea id="message" name="message" rows="5" placeholder="예: 영업팀 30명 대상, 보고서·고객 커뮤니케이션 실습 중심" required maxlength="2000"></textarea></div>
                     <label class="privacy-consent"><input type="checkbox" id="privacy-consent" required><span>문의 답변을 위한 개인정보 수집·이용에 동의합니다. <a href="https://blog.dinoflow.kr/privacy" target="_blank" rel="noopener noreferrer">개인정보처리방침</a></span></label>
-                    <button type="submit" class="button submit-button">문의 내용 보내기</button>
+                    <p class="form-delivery-note">작성한 내용으로 이메일 앱을 열어 직접 전송합니다.</p>
+                    <button type="submit" class="button submit-button">이메일 앱에서 문의 보내기</button>
                     <div id="form-message" class="form-message" role="status" aria-live="polite" hidden></div>
                 </form>
             </div>

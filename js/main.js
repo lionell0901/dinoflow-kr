@@ -85,28 +85,16 @@ function setupContactForm() {
     var message = document.getElementById('form-message');
     if (!form || !message) return;
 
-    if (window.emailjs && typeof window.emailjs.init === 'function') {
-        window.emailjs.init('URK5IT-ga48mugcnf');
-    }
-
-    function showMessage(text, type, includeAlternatives) {
+    function showMessage(text, type, emailHref) {
         message.hidden = false;
         message.className = 'form-message ' + type;
         message.replaceChildren(document.createTextNode(text));
-        if (includeAlternatives) {
+        if (emailHref) {
             message.appendChild(document.createTextNode(' '));
-            var kakao = document.createElement('a');
-            kakao.href = 'https://open.kakao.com/o/suYsYaxf';
-            kakao.target = '_blank';
-            kakao.rel = 'noopener noreferrer';
-            kakao.textContent = '카카오톡 상담';
-            message.appendChild(kakao);
-            message.appendChild(document.createTextNode(' 또는 '));
             var email = document.createElement('a');
-            email.href = 'mailto:godino2895@gmail.com';
-            email.textContent = '이메일';
+            email.href = emailHref;
+            email.textContent = '이메일 앱 다시 열기';
             message.appendChild(email);
-            message.appendChild(document.createTextNode('을 이용해주세요.'));
         }
         message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -115,39 +103,29 @@ function setupContactForm() {
         event.preventDefault();
         if (!form.reportValidity()) return;
 
-        if (!window.emailjs || typeof window.emailjs.send !== 'function') {
-            showMessage('문의 전송 서비스를 불러오지 못했습니다.', 'error', true);
-            return;
-        }
+        var name = document.getElementById('name').value.trim();
+        var company = document.getElementById('company').value.trim();
+        var lines = [
+            '담당자 이름: ' + name,
+            '기업·기관명: ' + company,
+            '업무 이메일: ' + document.getElementById('email').value.trim(),
+            '연락처: ' + (document.getElementById('phone').value.trim() || '미입력'),
+            '예상 인원: ' + (document.getElementById('participants').value.trim() || '미정'),
+            '희망 일정: ' + (document.getElementById('schedule').value.trim() || '미정'),
+            '',
+            '교육 대상과 기대하는 내용:',
+            document.getElementById('message').value.trim()
+        ];
+        var emailHref = 'mailto:godino2895@gmail.com?subject=' +
+            encodeURIComponent('[기업 교육 문의] ' + company + ' · ' + name) +
+            '&body=' + encodeURIComponent(lines.join('\n'));
 
-        var submitButton = form.querySelector('.submit-button');
-        var originalLabel = submitButton.textContent;
-        submitButton.disabled = true;
-        submitButton.textContent = '전송 중입니다...';
-        message.hidden = true;
-
-        var templateParams = {
-            from_name: document.getElementById('name').value.trim(),
-            from_email: document.getElementById('email').value.trim(),
-            phone: document.getElementById('phone').value.trim(),
-            company: document.getElementById('company').value.trim(),
-            participants: document.getElementById('participants').value.trim(),
-            schedule: document.getElementById('schedule').value.trim(),
-            message: document.getElementById('message').value.trim()
-        };
-
-        window.emailjs.send('service_86ytxlb', 'template_10s18ru', templateParams)
-            .then(function () {
-                form.reset();
-                showMessage('문의가 접수되었습니다. 영업일 1일 이내에 회신드리겠습니다.', 'success', false);
-            })
-            .catch(function () {
-                showMessage('문의 전송에 실패했습니다.', 'error', true);
-            })
-            .finally(function () {
-                submitButton.disabled = false;
-                submitButton.textContent = originalLabel;
-            });
+        showMessage(
+            '이메일 앱을 열었습니다. 작성 내용을 확인한 뒤 전송해주세요.',
+            'success',
+            emailHref
+        );
+        window.location.href = emailHref;
     });
 }
 
