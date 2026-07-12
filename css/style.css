@@ -124,7 +124,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     isolation: isolate;
     overflow: hidden;
 }
-.hero-image { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 42% 42%; }
+.hero-image { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
 .hero-scrim { position: absolute; z-index: -1; inset: 0; background: rgba(8, 24, 28, 0.7); }
 .hero-inner { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; padding-block: 76px 52px; }
 .eyebrow, .kicker { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; }
@@ -394,7 +394,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .program-note { align-items: flex-start; flex-direction: column; }
     .process-layout { grid-template-columns: 1fr; gap: 44px; }
     .reference-heading { align-items: flex-start; flex-direction: column; }
-    .hero-image { object-position: 42% 50%; }
+    .hero-image { object-position: 35% 50%; }
     .evidence-grid { grid-template-columns: 1fr; }
     .about-layout { grid-template-columns: 0.8fr 1.2fr; gap: 32px; }
     .about-photo { height: 460px; }
@@ -408,7 +408,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .section { padding-block: 64px; }
     .brand small { display: none; }
     .hero { min-height: 570px; }
-    .hero-image { object-position: 42% 50%; }
+    .hero-image { object-position: 35% 50%; }
     .hero-inner { padding-block: 44px 28px; }
     .eyebrow { margin-bottom: 12px; font-size: 0.72rem; }
     .hero h1 { font-size: 2.45rem; line-height: 1.12; }
