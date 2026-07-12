@@ -9,6 +9,9 @@ package-lock.json
 # Backups
 images/backup/
 
+# Local full-resolution lecture photo candidates (may contain EXIF/GPS)
+images/reference-candidates/
+
 # Vercel
 .vercel/
 
