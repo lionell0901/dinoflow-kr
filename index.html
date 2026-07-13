@@ -21,7 +21,7 @@
     <link rel="icon" type="image/png" href="images/dinoflow-logo.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-    <link rel="stylesheet" href="/css/style.css?v=20260712-9">
+    <link rel="stylesheet" href="/css/style.css?v=20260713-1">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -39,7 +39,7 @@
       "areaServed": "KR"
     }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous" defer></script>
+    <script id="emailjs-sdk" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous" async></script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">본문으로 바로가기</a>
@@ -68,7 +68,10 @@
 
     <main id="main-content">
         <section class="hero" id="hero" aria-labelledby="hero-title">
-            <img class="hero-image" src="images/hero-lecture-5352.webp" alt="기업 임직원들이 AI 비서 만들기 실습 화면을 보며 교육에 참여하는 현장" width="1920" height="960" fetchpriority="high">
+            <picture>
+                <source media="(max-width: 780px)" srcset="images/hero-lecture-2868.webp" type="image/webp">
+                <img class="hero-image" src="images/hero-lecture-5352.webp" alt="강사와 기업 임직원들이 함께 참여하는 AI 실무교육 현장" width="1920" height="960" fetchpriority="high">
+            </picture>
             <div class="hero-scrim" aria-hidden="true"></div>
             <div class="container hero-inner">
                 <p class="eyebrow">기업·기관 맞춤 AI 실무교육</p>
@@ -299,7 +302,7 @@
                     </div>
                 </div>
                 <form id="contact-form" class="contact-form reveal">
-                    <div class="form-honeypot" aria-hidden="true"><label for="contact-website">웹사이트</label><input type="text" id="contact-website" name="contact_website" tabindex="-1" autocomplete="off"></div>
+                    <div class="form-honeypot" aria-hidden="true"><label for="contact-website">웹사이트</label><input type="text" id="contact-website" name="contact_website" tabindex="-1" autocomplete="off" inputmode="none" data-1p-ignore data-lpignore="true" data-bwignore="true"></div>
                     <div class="form-row">
                         <div class="form-field"><label for="name">담당자 이름 <span aria-hidden="true">*</span></label><input type="text" id="name" name="name" autocomplete="name" required maxlength="50"></div>
                         <div class="form-field"><label for="company">기업·기관명 <span aria-hidden="true">*</span></label><input type="text" id="company" name="company" autocomplete="organization" required maxlength="100"></div>
@@ -315,7 +318,7 @@
                     <div class="form-field"><label for="message">교육 대상과 기대하는 내용 <span aria-hidden="true">*</span></label><textarea id="message" name="message" rows="5" placeholder="예: 영업팀 30명, 보고서 작성 실습 중심" required maxlength="2000"></textarea></div>
                     <div class="consent-group">
                         <label class="privacy-consent"><input type="checkbox" id="privacy-consent" name="collection_consent" value="agreed" required><span>문의 접수·회신을 위한 개인정보 수집·이용에 동의합니다. <a href="https://blog.dinoflow.kr/privacy#inquiry-consent" target="_blank" rel="noopener noreferrer">내용 보기</a></span></label>
-                        <label class="privacy-consent"><input type="checkbox" id="overseas-consent" name="overseas_transfer_consent" value="agreed"><span>EmailJS(미국 서버)를 통한 개인정보 국외 전송에 동의합니다. <a href="https://blog.dinoflow.kr/privacy#overseas-transfer" target="_blank" rel="noopener noreferrer">내용 보기</a></span></label>
+                        <label class="privacy-consent"><input type="checkbox" id="overseas-consent" name="overseas_transfer_consent" value="agreed" required><span>EmailJS(미국 서버)를 통한 개인정보 국외 전송에 동의합니다. <a href="https://blog.dinoflow.kr/privacy#overseas-transfer" target="_blank" rel="noopener noreferrer">내용 보기</a></span></label>
                     </div>
                     <p class="form-delivery-note">두 항목 동의 후 문의 내용이 자동으로 전송됩니다.</p>
                     <button type="button" class="button submit-button">문의 내용 보내기</button>
@@ -333,6 +336,6 @@
             <div class="footer-business"><p>DinoFlow 디노플로우 · 대표 고윤재</p><p>사업자등록번호 699-33-01694 · 서울특별시</p><p>&copy; 2026 DinoFlow. All rights reserved.</p></div>
         </div>
     </footer>
-    <script src="/js/main.js?v=20260712-6"></script>
+    <script src="/js/main.js?v=20260713-1"></script>
 </body>
 </html>

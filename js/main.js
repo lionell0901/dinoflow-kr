@@ -101,11 +101,22 @@ function setupContactForm() {
     var overseasConsent = document.getElementById('overseas-consent');
     var inFlight = false;
     var emailClientReady = false;
+    var emailClientFailed = false;
+    var emailClientWaiters = [];
+    var emailScript = document.getElementById('emailjs-sdk');
     var publicKey = 'URK5IT-ga48mugcnf';
 
     if (submitButton) submitButton.type = 'submit';
 
-    if (window.emailjs && typeof window.emailjs.init === 'function') {
+    function settleEmailClientWaiters(ready) {
+        var waiters = emailClientWaiters.slice();
+        emailClientWaiters.length = 0;
+        waiters.forEach(function (resolve) { resolve(ready); });
+    }
+
+    function initializeEmailClient() {
+        if (emailClientReady) return true;
+        if (!window.emailjs || typeof window.emailjs.init !== 'function') return false;
         try {
             window.emailjs.init({
                 publicKey: publicKey,
@@ -113,16 +124,53 @@ function setupContactForm() {
                 limitRate: { id: 'dinoflow-contact', throttle: 10000 }
             });
             emailClientReady = true;
+            settleEmailClientWaiters(true);
+            return true;
         } catch (error) {
+            emailClientFailed = true;
             emailClientReady = false;
+            settleEmailClientWaiters(false);
+            return false;
         }
     }
-    if (overseasConsent) overseasConsent.required = emailClientReady;
+
+    function waitForEmailClient(timeoutMs) {
+        if (initializeEmailClient()) return Promise.resolve(true);
+        if (emailClientFailed) return Promise.resolve(false);
+        return new Promise(function (resolve) {
+            var settled = false;
+            var timeoutId = window.setTimeout(function () {
+                if (settled) return;
+                settled = true;
+                resolve(false);
+            }, timeoutMs);
+            emailClientWaiters.push(function (ready) {
+                if (settled) return;
+                settled = true;
+                window.clearTimeout(timeoutId);
+                resolve(ready);
+            });
+        });
+    }
+
+    if (emailScript) {
+        emailScript.addEventListener('load', function () {
+            if (initializeEmailClient()) return;
+            emailClientFailed = true;
+            settleEmailClientWaiters(false);
+        });
+        emailScript.addEventListener('error', function () {
+            emailClientFailed = true;
+            settleEmailClientWaiters(false);
+        });
+    }
+    initializeEmailClient();
+    if (overseasConsent) overseasConsent.required = true;
 
     function showMessage(text, type, includeAlternatives, emailHref) {
         message.hidden = false;
         message.className = 'form-message ' + type;
-        message.replaceChildren(document.createTextNode(text));
+        message.textContent = text;
         if (includeAlternatives) {
             message.appendChild(document.createTextNode(' '));
             var kakao = document.createElement('a');
@@ -138,7 +186,13 @@ function setupContactForm() {
             message.appendChild(email);
             message.appendChild(document.createTextNode('를 이용해주세요.'));
         }
-        message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        var activeElement = document.activeElement;
+        if (activeElement && form.contains(activeElement) && typeof activeElement.blur === 'function') {
+            activeElement.blur();
+        }
+        window.setTimeout(function () {
+            message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 80);
     }
 
     function getValue(id) {
@@ -205,15 +259,11 @@ function setupContactForm() {
 
         var inquiryId = createInquiryId();
         var emailHref = buildFallbackEmailHref(inquiryId);
-        if (!emailClientReady || !window.emailjs || typeof window.emailjs.send !== 'function') {
-            showMessage('자동 문의 전송 서비스를 불러오지 못했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
-            return;
-        }
 
         inFlight = true;
         if (submitButton) {
             submitButton.disabled = true;
-            submitButton.textContent = '전송 중입니다...';
+            submitButton.textContent = '전송 준비 중입니다...';
         }
         form.setAttribute('aria-busy', 'true');
         message.hidden = true;
@@ -237,12 +287,29 @@ function setupContactForm() {
             source_url: window.location.origin + window.location.pathname
         };
 
-        var slowNoticeId = window.setTimeout(function () {
-            showMessage('전송 확인이 지연되고 있습니다. 중복 접수를 피하기 위해 잠시만 기다려주세요.', 'notice', false);
-        }, 15000);
-        var sendRequest = Promise.resolve().then(function () {
+        var slowNoticeId = 0;
+        var sendRequest = waitForEmailClient(6000).then(function (ready) {
+            if (!ready || !window.emailjs || typeof window.emailjs.send !== 'function') {
+                var unavailableError = new Error('Email client unavailable');
+                unavailableError.code = 'EMAIL_CLIENT_UNAVAILABLE';
+                throw unavailableError;
+            }
+            if (submitButton) submitButton.textContent = '전송 중입니다...';
+            slowNoticeId = window.setTimeout(function () {
+                showMessage('전송 확인이 지연되고 있습니다. 중복 접수를 피하기 위해 잠시만 기다려주세요.', 'notice', false);
+            }, 15000);
             return window.emailjs.send('service_88wyxr7', 'template_10s18ru', templateParams);
         });
+
+        function finishSubmission() {
+            window.clearTimeout(slowNoticeId);
+            form.removeAttribute('aria-busy');
+            inFlight = false;
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = originalLabel;
+            }
+        }
 
         sendRequest
             .then(function () {
@@ -250,6 +317,10 @@ function setupContactForm() {
                 showMessage('문의가 접수되었습니다. 접수번호 ' + inquiryId + ' · 영업일 1일 이내에 회신드리겠습니다.', 'success', false);
             })
             .catch(function (error) {
+                if (error && error.code === 'EMAIL_CLIENT_UNAVAILABLE') {
+                    showMessage('자동 문의 전송 서비스를 불러오지 못했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
+                    return;
+                }
                 if (error && Number(error.status) === 412) {
                     showMessage('문의 전송 서비스 연결이 만료되었습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
                     return;
@@ -260,15 +331,7 @@ function setupContactForm() {
                 }
                 showMessage('문의 전송에 실패했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
             })
-            .finally(function () {
-                window.clearTimeout(slowNoticeId);
-                form.removeAttribute('aria-busy');
-                inFlight = false;
-                if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.textContent = originalLabel;
-                }
-            });
+            .then(finishSubmission, finishSubmission);
     });
 }
 
