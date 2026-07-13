@@ -106,8 +106,10 @@ function setupContactForm() {
     var emailClientWaiters = [];
     var emailScript = document.getElementById('emailjs-sdk');
     var publicKey = 'URK5IT-ga48mugcnf';
+    var hubReferenceNote = document.getElementById('hub-reference-note');
 
     if (submitButton) submitButton.type = 'submit';
+    applyHubInquiryPrefill(form, hubReferenceNote);
 
     function settleEmailClientWaiters(ready) {
         var waiters = emailClientWaiters.slice();
@@ -315,6 +317,10 @@ function setupContactForm() {
         sendRequest
             .then(function () {
                 form.reset();
+                if (hubReferenceNote) {
+                    hubReferenceNote.textContent = '';
+                    hubReferenceNote.hidden = true;
+                }
                 showMessage('문의가 접수되었습니다. 접수번호 ' + inquiryId + ' · 영업일 1일 이내에 회신드리겠습니다.', 'success', false);
             })
             .catch(function (error) {
@@ -334,6 +340,81 @@ function setupContactForm() {
             })
             .then(finishSubmission, finishSubmission);
     });
+}
+
+function applyHubInquiryPrefill(form, referenceNote) {
+    var prefix = '#contact?';
+    if (window.location.hash.indexOf(prefix) !== 0) return false;
+
+    var params;
+    try {
+        params = new URLSearchParams(window.location.hash.slice(prefix.length));
+    } catch (error) {
+        return false;
+    }
+    if (params.get('from') !== 'hub') return false;
+
+    var topic = cleanHubReference(params.get('topic'), 120);
+    var audience = cleanHubReference(params.get('audience'), 60);
+    var category = cleanHubReference(params.get('category'), 30);
+    var allowedCategories = [
+        'AI리터러시',
+        'AI비서',
+        '바이브코딩',
+        '직무특화',
+        '리더십',
+        '기타'
+    ];
+    if (allowedCategories.indexOf(category) === -1) category = '';
+
+    var messageField = form.querySelector('#message');
+    if (referenceNote) referenceNote.hidden = true;
+
+    try {
+        window.history.replaceState(window.history.state, '', '#contact');
+    } catch (error) {
+        /* 주소 정리가 불가능한 환경에서도 입력 내용은 유지한다. */
+    }
+    scheduleHubContactScroll(form);
+
+    if (!topic && !audience && !category) return false;
+    if (!messageField || messageField.value.trim()) return false;
+
+    var lines = ['[Hub에서 참고한 교육]'];
+    if (topic) lines.push('교육 내용: ' + topic);
+    if (audience) lines.push('교육 대상: ' + audience);
+    if (category) {
+        lines.push('교육 분야: ' + (category === 'AI리터러시' ? 'AI 리터러시' : category));
+    }
+    lines.push('', '우리 조직에서 원하는 내용:', '');
+    messageField.value = lines.join('\n');
+    messageField.setCustomValidity('');
+
+    if (referenceNote) {
+        referenceNote.textContent = 'Hub에서 선택한 교육을 불러왔습니다. 원하는 일정과 조건을 덧붙여주세요.';
+        referenceNote.hidden = false;
+    }
+
+    return true;
+}
+
+function scheduleHubContactScroll(form) {
+    window.setTimeout(function () {
+        var root = document.documentElement;
+        var previousBehavior = root.style.scrollBehavior;
+        root.style.scrollBehavior = 'auto';
+        form.scrollIntoView({ behavior: 'auto', block: 'start' });
+        root.style.scrollBehavior = previousBehavior;
+    }, 0);
+}
+
+function cleanHubReference(value, maxLength) {
+    if (typeof value !== 'string') return '';
+    return value
+        .replace(/[\u0000-\u001f\u007f-\u009f\u200e\u200f\u202a-\u202e\u2066-\u2069]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, maxLength);
 }
 
 function loadTrackRecord() {
@@ -356,6 +437,13 @@ function loadTrackRecord() {
             setStat('sessions', floorPlus(data.totals.sessions, '회'));
             setStat('hours', floorPlus(data.totals.hours, '시간'));
             setStat('students', floorPlus(data.totals.attendees, '명'));
+            setStat('partners', floorPlus(data.totals.partner_organizations_min, '개'));
+            var partnerMetric = data.totals.partner_organizations;
+            var partnerScope = document.getElementById('partner-scope');
+            if (partnerScope && partnerMetric && partnerMetric.as_of && partnerMetric.note) {
+                partnerScope.textContent = (partnerMetric.source || 'DinoFlow 운영 기록') + ', ' +
+                    partnerMetric.as_of + ' 기준. ' + partnerMetric.note;
+            }
             renderRecentLectures(data.recent);
             var footer = document.getElementById('recent-footer-link');
             if (footer && data.upcoming && Number(data.upcoming.count) > 0) {

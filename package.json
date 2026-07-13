@@ -6,7 +6,8 @@
   "scripts": {
     "minify:css": "cleancss -o css/style.min.css css/style.css",
     "minify:js": "terser js/main.js -o js/main.min.js -c -m",
-    "build": "npm run minify:css && npm run minify:js && echo 'Build complete! Minified files created.'",
+    "build": "npm run minify:css && npm run minify:js && npm run verify && echo 'Build complete! Minified files created.'",
+    "verify": "node --check js/main.js && node --check js/main.min.js && node --test tests/*.test.mjs",
     "optimize:images": "echo 'Optimizing images...' && find images -type f \\( -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' -o -name '*.JPEG' \\) -exec sips -Z 1920 {} \\;",
     "backup:images": "mkdir -p images/backup && cp -R images/*.{jpg,jpeg,png,JPG,JPEG,PNG} images/backup/ 2>/dev/null || true && echo 'Images backed up to images/backup/'",
     "stats": "echo '=== File Sizes ===' && du -sh css/*.css js/*.js images/* 2>/dev/null | sort -h",

@@ -306,6 +306,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     transition: border-color 160ms ease, background-color 160ms ease;
 }
 .form-field textarea { min-height: 126px; resize: vertical; }
+.hub-reference-note { margin: 0 0 14px; padding: 10px 12px; color: var(--forest-dark); background: var(--forest-pale); border-left: 3px solid var(--forest); font-size: 0.78rem; line-height: 1.5; }
 .form-field input:hover, .form-field textarea:hover { border-color: var(--forest); }
 .form-field input:focus, .form-field textarea:focus { background: var(--white); }
 .form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); opacity: 1; }

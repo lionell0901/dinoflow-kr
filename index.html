@@ -21,7 +21,7 @@
     <link rel="icon" type="image/png" href="images/dinoflow-logo.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-    <link rel="stylesheet" href="/css/style.css?v=20260713-2">
+    <link rel="stylesheet" href="/css/style.css?v=20260713-4">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -92,9 +92,10 @@
         <section class="client-strip" aria-labelledby="client-title">
             <div class="container">
                 <p id="client-title" class="client-proof">
-                    <strong>20+개</strong>
+                    <strong data-stat="partners" aria-describedby="partner-scope">20+개</strong>
                     <span>기업·기관과 함께했습니다</span>
                     <span class="client-sectors">금융 · 제조 · IT · 공공</span>
+                    <span id="partner-scope" class="sr-only">DinoFlow 전체 운영 기록 기준이며 공개 아카이브 외 비공개·미게시 협업을 포함합니다.</span>
                 </p>
                 <div class="client-logos">
                     <span class="client-logo"><img src="images/logo/samsung.jpg" alt="삼성화재" loading="lazy"></span>
@@ -319,7 +320,8 @@
                         <div class="form-field"><label for="participants">예상 인원 <span class="optional">선택</span></label><input type="text" id="participants" name="participants" placeholder="예: 30명" maxlength="50"></div>
                         <div class="form-field"><label for="schedule">희망 일정 <span class="optional">선택</span></label><input type="text" id="schedule" name="schedule" placeholder="예: 9월 중" maxlength="100"></div>
                     </div>
-                    <div class="form-field"><label for="message">교육 대상과 기대하는 내용 <span aria-hidden="true">*</span></label><textarea id="message" name="message" rows="5" placeholder="예: 영업팀 30명, 보고서 작성 실습 중심" required maxlength="2000"></textarea></div>
+                    <p id="hub-reference-note" class="hub-reference-note" role="status" hidden></p>
+                    <div class="form-field"><label for="message">교육 대상과 기대하는 내용 <span aria-hidden="true">*</span></label><textarea id="message" name="message" rows="5" placeholder="예: 영업팀 30명, 보고서 작성 실습 중심" required maxlength="2000" aria-describedby="hub-reference-note"></textarea></div>
                     <div class="consent-group">
                         <label class="privacy-consent"><input type="checkbox" id="privacy-consent" name="collection_consent" value="agreed" required><span>문의 접수·회신을 위한 개인정보 수집·이용에 동의합니다. <a href="https://blog.dinoflow.kr/privacy#inquiry-consent" target="_blank" rel="noopener noreferrer">내용 보기</a></span></label>
                         <label class="privacy-consent"><input type="checkbox" id="overseas-consent" name="overseas_transfer_consent" value="agreed" required><span>EmailJS(미국 서버)를 통한 개인정보 국외 전송에 동의합니다. <a href="https://blog.dinoflow.kr/privacy#overseas-transfer" target="_blank" rel="noopener noreferrer">내용 보기</a></span></label>
@@ -340,6 +342,6 @@
             <div class="footer-business"><p>DinoFlow 디노플로우 · 대표 고윤재</p><p>사업자등록번호 699-33-01694 · 서울특별시</p><p>&copy; 2026 DinoFlow. All rights reserved.</p></div>
         </div>
     </footer>
-    <script src="/js/main.js?v=20260713-2"></script>
+    <script src="/js/main.js?v=20260713-4"></script>
 </body>
 </html>
