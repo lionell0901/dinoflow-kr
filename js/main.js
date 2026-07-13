@@ -18,9 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (footer) footer.toggleAttribute('inert', open);
         if (open) {
             window.setTimeout(function () {
+                if (menuButton.getAttribute('aria-expanded') !== 'true') return;
                 var firstLink = navLinks.querySelector('a');
                 if (firstLink) firstLink.focus();
-            }, 0);
+            }, reduceMotion ? 0 : 240);
         }
     }
 
