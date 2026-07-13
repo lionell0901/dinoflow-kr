@@ -286,7 +286,7 @@ function setupContactForm() {
             collection_consent_at: submittedAt,
             overseas_transfer_consent: overseasConsent && overseasConsent.checked ? '동의' : '미동의',
             overseas_transfer_consent_at: submittedAt,
-            policy_version: '2026-07-12',
+            policy_version: '2026-07-13',
             source_url: window.location.origin + window.location.pathname
         };
 
