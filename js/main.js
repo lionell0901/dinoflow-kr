@@ -343,15 +343,9 @@ function setupContactForm() {
 }
 
 function applyHubInquiryPrefill(form, referenceNote) {
-    var prefix = '#contact?';
-    if (window.location.hash.indexOf(prefix) !== 0) return false;
-
-    var params;
-    try {
-        params = new URLSearchParams(window.location.hash.slice(prefix.length));
-    } catch (error) {
-        return false;
-    }
+    var handoff = getHubInquiryParams();
+    if (!handoff || handoff.redirected) return false;
+    var params = handoff.params;
     if (params.get('from') !== 'hub') return false;
 
     var topic = cleanHubReference(params.get('topic'), 120);
@@ -371,11 +365,10 @@ function applyHubInquiryPrefill(form, referenceNote) {
     if (referenceNote) referenceNote.hidden = true;
 
     try {
-        window.history.replaceState(window.history.state, '', '#contact');
+        window.history.replaceState(window.history.state, '', window.location.pathname + '#contact');
     } catch (error) {
         /* 주소 정리가 불가능한 환경에서도 입력 내용은 유지한다. */
     }
-    scheduleHubContactScroll(form);
 
     if (!topic && !audience && !category) return false;
     if (!messageField || messageField.value.trim()) return false;
@@ -398,14 +391,30 @@ function applyHubInquiryPrefill(form, referenceNote) {
     return true;
 }
 
-function scheduleHubContactScroll(form) {
-    window.setTimeout(function () {
-        var root = document.documentElement;
-        var previousBehavior = root.style.scrollBehavior;
-        root.style.scrollBehavior = 'auto';
-        form.scrollIntoView({ behavior: 'auto', block: 'start' });
-        root.style.scrollBehavior = previousBehavior;
-    }, 0);
+function getHubInquiryParams() {
+    var legacyPrefix = '#contact?';
+    if (window.location.hash.indexOf(legacyPrefix) === 0) {
+        try {
+            var legacyParams = new URLSearchParams(window.location.hash.slice(legacyPrefix.length));
+            if (legacyParams.get('from') !== 'hub') return null;
+            var safeParams = new URLSearchParams({ from: 'hub' });
+            ['topic', 'audience', 'category'].forEach(function (key) {
+                var value = legacyParams.get(key);
+                if (value) safeParams.set(key, value);
+            });
+            window.location.replace(window.location.pathname + '?' + safeParams.toString() + '#contact');
+            return { redirected: true };
+        } catch (error) {
+            return null;
+        }
+    }
+
+    if (window.location.hash !== '#contact' || !window.location.search) return null;
+    try {
+        return { params: new URLSearchParams(window.location.search) };
+    } catch (error) {
+        return null;
+    }
 }
 
 function cleanHubReference(value, maxLength) {
