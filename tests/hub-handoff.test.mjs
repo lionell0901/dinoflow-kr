@@ -7,12 +7,26 @@ const source = readFileSync(new URL("../js/main.js", import.meta.url), "utf8");
 
 function loadScript(hash, search = "") {
   let replacedLocation = "";
+  const elements = new Map();
   const document = {
     documentElement: {
       classList: { add() {} },
       style: { scrollBehavior: "" },
     },
     addEventListener() {},
+    getElementById(id) {
+      return elements.get(id) || null;
+    },
+    createElement(tagName) {
+      return {
+        tagName,
+        children: [],
+        appendChild(child) {
+          this.children.push(child);
+          return child;
+        },
+      };
+    },
   };
   const window = {
     location: {
@@ -58,6 +72,7 @@ function loadScript(hash, search = "") {
 
   return {
     context,
+    elements,
     form,
     messageField,
     note,
@@ -122,4 +137,75 @@ test("EmailJS source URL excludes the inquiry handoff", () => {
     /source_url:\s*window\.location\.origin\s*\+\s*window\.location\.pathname/,
   );
   assert.doesNotMatch(source, /source_url:[^\n]*location\.href/);
+});
+
+test("anchor targets receive programmatic focus without an extra scroll", () => {
+  const payload = loadScript("");
+  let tabindex = null;
+  let focusOptions = null;
+  const target = {
+    hasAttribute(name) {
+      return name === "tabindex" && tabindex !== null;
+    },
+    setAttribute(name, value) {
+      if (name === "tabindex") tabindex = value;
+    },
+    focus(options) {
+      focusOptions = options;
+    },
+  };
+
+  payload.context.focusAnchorTarget(target);
+
+  assert.equal(tabindex, "-1");
+  assert.equal(focusOptions.preventScroll, true);
+});
+
+test("track record without fetch stays an explicit non-live fallback", async () => {
+  const payload = loadScript("");
+  const status = { dataset: {}, textContent: "" };
+  payload.elements.set("recent-status", status);
+
+  assert.equal(await payload.context.loadTrackRecord(), false);
+  assert.equal(status.dataset.state, "fallback");
+  assert.equal(status.textContent, "비실시간");
+});
+
+test("track record state only claims a Hub connection explicitly", () => {
+  const payload = loadScript("");
+  const status = { dataset: {}, textContent: "" };
+  payload.elements.set("recent-status", status);
+
+  payload.context.setTrackRecordState("connected");
+  assert.equal(status.dataset.state, "connected");
+  assert.equal(status.textContent, "Hub 연동");
+
+  payload.context.setTrackRecordState("unknown");
+  assert.equal(status.dataset.state, "fallback");
+  assert.equal(status.textContent, "비실시간");
+});
+
+test("malformed Hub recent entries leave the honest static fallback intact", () => {
+  const payload = loadScript("");
+  const fallback = { textContent: "최근 강의는 활동 허브에서 확인" };
+  const list = {
+    children: [fallback],
+    replaceChildren(...children) {
+      this.children = children;
+    },
+  };
+  payload.elements.set("recent-list", list);
+
+  assert.equal(payload.context.renderRecentLectures([null, {}, { date: "2026-07" }]), false);
+  assert.deepEqual(list.children, [fallback]);
+
+  assert.equal(
+    payload.context.renderRecentLectures([
+      null,
+      { date: "2026-07-12", client: "테스트 기관", program: "AI 실무교육" },
+    ]),
+    true,
+  );
+  assert.equal(list.children.length, 1);
+  assert.equal(list.children[0].children[0].children[1].textContent, "테스트 기관");
 });

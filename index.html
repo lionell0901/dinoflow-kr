@@ -21,7 +21,7 @@
     <link rel="icon" type="image/png" href="images/dinoflow-logo.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-    <link rel="stylesheet" href="/css/style.css?v=20260713-4">
+    <link rel="stylesheet" href="/css/style.min.css?v=20260715-1">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -31,7 +31,6 @@
       "url": "https://dinoflow.kr/",
       "logo": "https://dinoflow.kr/images/dinoflow-logo.png",
       "description": "기업과 기관을 위한 맞춤형 AI 실무교육을 설계하고 운영합니다.",
-      "founder": { "@type": "Person", "name": "고윤재", "alternateName": "디노", "jobTitle": "대표·AI 교육 강사" },
       "address": { "@type": "PostalAddress", "addressCountry": "KR", "addressLocality": "Seoul" },
       "email": "godino2895@gmail.com",
       "telephone": "+82-10-5016-2823",
@@ -259,10 +258,9 @@
                         <div><strong>4.97 / 5</strong><span>만족도 · 응답 591명</span></div>
                     </div>
                     <div class="recent-lectures reveal" id="recent-lectures">
-                        <div class="recent-header"><h3>최근 진행 강의</h3><span>LIVE</span></div>
+                        <div class="recent-header"><h3>최근 진행 강의</h3><span id="recent-status" role="status" aria-live="polite" data-state="fallback">비실시간</span></div>
                         <ol class="recent-list" id="recent-list">
-                            <li class="recent-fallback"><span>금융·보험</span><strong>기업 맞춤형 AI 실무교육</strong><small>직무 특화 · 오프라인</small></li>
-                            <li class="recent-fallback"><span>기업 교육</span><strong>생성형 AI 업무 활용</strong><small>전 직원 · 실습형</small></li>
+                            <li class="recent-fallback"><span>안내</span><strong>최근 강의는 활동 허브에서 확인</strong><small>Hub 연결 전 정적 안내</small></li>
                         </ol>
                         <a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer" id="recent-footer-link">강의 트랙레코드 확인 <span aria-hidden="true">↗</span></a>
                     </div>
@@ -272,17 +270,15 @@
 
         <section class="about section" id="about" aria-labelledby="about-title">
             <div class="container about-layout">
-                <div class="about-photo reveal"><img src="images/profile_0826.webp" alt="DinoFlow 대표 강사 디노 고윤재" loading="lazy" width="864" height="1184"></div>
                 <div class="about-copy reveal">
-                    <p class="kicker">대표 강사</p>
-                    <h2 id="about-title">교육을 아는 사람이<br>AI 실무를 가르칩니다</h2>
-                    <p class="about-lead">디노 · 고윤재</p>
+                    <p class="kicker">왜 DinoFlow인가</p>
+                    <h2 id="about-title">교육을 아는 전문가가<br>AI 실무를 가르칩니다</h2>
                     <p>교육공학 기반의 교육 설계 경험과 현업 AI 활용 경험을 결합해, 기능 설명보다 참여자의 행동 변화에 집중합니다.</p>
                     <dl class="credentials">
-                        <div><dt>전공</dt><dd>한양대학교 교육공학</dd></div>
-                        <div><dt>경력</dt><dd>공공교육기관 7년 · 전 국립대 교육혁신원</dd></div>
+                        <div><dt>교육 설계</dt><dd>교육공학 전공 기반의 커리큘럼 설계</dd></div>
+                        <div><dt>현장 경력</dt><dd>공공교육기관 7년 · 국립대 교육혁신원 경력</dd></div>
                         <div><dt>커뮤니티</dt><dd>AI 실무 커뮤니티 650여 명 운영</dd></div>
-                        <div><dt>사업자</dt><dd>DinoFlow 대표 · 699-33-01694</dd></div>
+                        <div><dt>사업자</dt><dd>DinoFlow · 699-33-01694</dd></div>
                     </dl>
                     <div class="about-links"><a href="https://blog.dinoflow.kr" target="_blank" rel="noopener noreferrer">교육 자료실 <span aria-hidden="true">↗</span></a><a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer">전체 활동 기록 <span aria-hidden="true">↗</span></a></div>
                 </div>
@@ -307,6 +303,8 @@
                     </div>
                 </div>
                 <form id="contact-form" class="contact-form reveal">
+                    <p class="form-message notice contact-fallback-note">자동 문의 폼을 사용할 수 없습니다. <a href="https://open.kakao.com/o/suYsYaxf">카카오톡으로 상담</a>하거나 <a href="mailto:godino2895@gmail.com?subject=%5B기업%20교육%20문의%5D">이메일로 문의</a>해주세요.</p>
+                    <div class="contact-form-fields">
                     <div class="form-honeypot" aria-hidden="true"><label for="contact-website">웹사이트</label><input type="text" id="contact-website" name="contact_website" tabindex="-1" autocomplete="off" inputmode="none" data-1p-ignore data-lpignore="true" data-bwignore="true"></div>
                     <div class="form-row">
                         <div class="form-field"><label for="name">담당자 이름 <span aria-hidden="true">*</span></label><input type="text" id="name" name="name" autocomplete="name" required maxlength="50"></div>
@@ -324,12 +322,11 @@
                     <div class="form-field"><label for="message">교육 대상과 기대하는 내용 <span aria-hidden="true">*</span></label><textarea id="message" name="message" rows="5" placeholder="예: 영업팀 30명, 보고서 작성 실습 중심" required maxlength="2000" aria-describedby="hub-reference-note"></textarea></div>
                     <div class="consent-group">
                         <label class="privacy-consent"><input type="checkbox" id="privacy-consent" name="collection_consent" value="agreed" required><span>문의 접수·회신을 위한 개인정보 수집·이용에 동의합니다. <a href="https://blog.dinoflow.kr/privacy#inquiry-consent" target="_blank" rel="noopener noreferrer">내용 보기</a></span></label>
-                        <label class="privacy-consent"><input type="checkbox" id="overseas-consent" name="overseas_transfer_consent" value="agreed" required><span>EmailJS(미국 서버)를 통한 개인정보 국외 전송에 동의합니다. <a href="https://blog.dinoflow.kr/privacy#overseas-transfer" target="_blank" rel="noopener noreferrer">내용 보기</a></span></label>
                     </div>
-                    <p class="form-delivery-note">두 항목 동의 후 문의 내용이 자동으로 전송됩니다.</p>
+                    <p class="form-delivery-note emailjs-delivery-note">동의 후 문의 내용이 자동으로 전송됩니다. 이메일 전송 과정의 처리위탁·국외 이전 내용은 <a href="https://blog.dinoflow.kr/privacy#overseas-transfer" target="_blank" rel="noopener noreferrer">개인정보처리방침</a>에서 확인할 수 있습니다.</p>
                     <button type="button" class="button submit-button">문의 내용 보내기</button>
-                    <noscript><p class="form-message notice">자동 문의 접수에는 JavaScript가 필요합니다. <a href="mailto:godino2895@gmail.com">이메일로 문의하기</a></p></noscript>
-                    <div id="form-message" class="form-message" role="status" aria-live="polite" hidden></div>
+                    <div id="form-message" class="form-message" role="status" aria-live="polite" tabindex="-1" hidden></div>
+                    </div>
                 </form>
             </div>
         </section>
@@ -339,9 +336,9 @@
         <div class="container footer-grid">
             <div><a href="#hero" class="footer-brand">DinoFlow</a><p>교육에서 업무 변화까지 설계합니다.</p></div>
             <div class="footer-links"><a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer">활동 허브</a><a href="https://blog.dinoflow.kr" target="_blank" rel="noopener noreferrer">자료실</a><a href="#contact">교육 문의</a></div>
-            <div class="footer-business"><p>DinoFlow 디노플로우 · 대표 고윤재</p><p>사업자등록번호 699-33-01694 · 서울특별시</p><p>&copy; 2026 DinoFlow. All rights reserved.</p></div>
+            <div class="footer-business"><p>DinoFlow 디노플로우</p><p>사업자등록번호 699-33-01694 · 서울특별시</p><p>&copy; 2026 DinoFlow. All rights reserved.</p></div>
         </div>
     </footer>
-    <script src="/js/main.js?v=20260713-5"></script>
+    <script src="/js/main.min.js?v=20260715-1"></script>
 </body>
 </html>

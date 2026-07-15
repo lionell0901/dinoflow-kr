@@ -1,12 +1,32 @@
 document.documentElement.classList.add('js');
 
+function prefersReducedMotion() {
+    return typeof window.matchMedia === 'function' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function focusWithoutScrolling(element) {
+    if (!element || typeof element.focus !== 'function') return;
+    try {
+        element.focus({ preventScroll: true });
+    } catch (error) {
+        element.focus();
+    }
+}
+
+function focusAnchorTarget(target) {
+    if (!target) return;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    focusWithoutScrolling(target);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     var header = document.getElementById('header');
     var menuButton = document.querySelector('.menu-button');
     var navLinks = document.getElementById('primary-navigation');
     var mainContent = document.getElementById('main-content');
     var footer = document.querySelector('.site-footer');
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var reduceMotion = prefersReducedMotion();
 
     function setMenu(open) {
         if (!menuButton || !navLinks) return;
@@ -30,7 +50,13 @@ document.addEventListener('DOMContentLoaded', function () {
             setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
         });
         navLinks.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () { setMenu(false); });
+            link.addEventListener('click', function () {
+                var wasOpen = menuButton.getAttribute('aria-expanded') === 'true';
+                setMenu(false);
+                if (wasOpen && link.getAttribute('href').charAt(0) !== '#') {
+                    focusWithoutScrolling(menuButton);
+                }
+            });
         });
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') {
@@ -54,13 +80,13 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', updateHeader, { passive: true });
 
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-        link.addEventListener('click', function (event) {
+        link.addEventListener('click', function () {
             var targetId = link.getAttribute('href');
             if (!targetId || targetId === '#') return;
-            var target = document.querySelector(targetId);
+            var target = document.getElementById(targetId.slice(1));
             if (!target) return;
-            event.preventDefault();
-            target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+            if (menuButton && menuButton.getAttribute('aria-expanded') === 'true') setMenu(false);
+            window.setTimeout(function () { focusAnchorTarget(target); }, 0);
         });
     });
 
@@ -99,7 +125,6 @@ function setupContactForm() {
     var submitButton = form.querySelector('.submit-button');
     var originalLabel = submitButton ? submitButton.textContent : '문의 내용 보내기';
     var collectionConsent = document.getElementById('privacy-consent');
-    var overseasConsent = document.getElementById('overseas-consent');
     var inFlight = false;
     var emailClientReady = false;
     var emailClientFailed = false;
@@ -108,7 +133,6 @@ function setupContactForm() {
     var publicKey = 'URK5IT-ga48mugcnf';
     var hubReferenceNote = document.getElementById('hub-reference-note');
 
-    if (submitButton) submitButton.type = 'submit';
     applyHubInquiryPrefill(form, hubReferenceNote);
 
     function settleEmailClientWaiters(ready) {
@@ -168,9 +192,8 @@ function setupContactForm() {
         });
     }
     initializeEmailClient();
-    if (overseasConsent) overseasConsent.required = true;
 
-    function showMessage(text, type, includeAlternatives, emailHref) {
+    function showMessage(text, type, includeAlternatives, emailHref, moveFocus) {
         message.hidden = false;
         message.className = 'form-message ' + type;
         message.textContent = text;
@@ -189,12 +212,13 @@ function setupContactForm() {
             message.appendChild(email);
             message.appendChild(document.createTextNode('를 이용해주세요.'));
         }
-        var activeElement = document.activeElement;
-        if (activeElement && form.contains(activeElement) && typeof activeElement.blur === 'function') {
-            activeElement.blur();
-        }
+        if (!moveFocus) return;
         window.setTimeout(function () {
-            message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            focusWithoutScrolling(message);
+            message.scrollIntoView({
+                behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+                block: 'nearest'
+            });
         }, 80);
     }
 
@@ -256,7 +280,7 @@ function setupContactForm() {
 
         var honeypot = document.getElementById('contact-website');
         if (honeypot && honeypot.value) {
-            showMessage('자동 입력이 감지되어 전송하지 않았습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.', 'error', false);
+            showMessage('자동 입력이 감지되어 전송하지 않았습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.', 'error', false, null, true);
             return;
         }
 
@@ -284,9 +308,9 @@ function setupContactForm() {
             consent_at: submittedAt,
             collection_consent: collectionConsent && collectionConsent.checked ? '동의' : '미동의',
             collection_consent_at: submittedAt,
-            overseas_transfer_consent: overseasConsent && overseasConsent.checked ? '동의' : '미동의',
+            overseas_transfer_consent: '방침 고지 (별도 동의 불요)',
             overseas_transfer_consent_at: submittedAt,
-            policy_version: '2026-07-13',
+            policy_version: '2026-07-15',
             source_url: window.location.origin + window.location.pathname
         };
 
@@ -299,7 +323,7 @@ function setupContactForm() {
             }
             if (submitButton) submitButton.textContent = '전송 중입니다...';
             slowNoticeId = window.setTimeout(function () {
-                showMessage('전송 확인이 지연되고 있습니다. 중복 접수를 피하기 위해 잠시만 기다려주세요.', 'notice', false);
+                showMessage('전송 확인이 지연되고 있습니다. 중복 접수를 피하기 위해 잠시만 기다려주세요.', 'notice', false, null, false);
             }, 15000);
             return window.emailjs.send('service_88wyxr7', 'template_10s18ru', templateParams);
         });
@@ -321,25 +345,28 @@ function setupContactForm() {
                     hubReferenceNote.textContent = '';
                     hubReferenceNote.hidden = true;
                 }
-                showMessage('문의가 접수되었습니다. 접수번호 ' + inquiryId + ' · 영업일 1일 이내에 회신드리겠습니다.', 'success', false);
+                showMessage('문의가 접수되었습니다. 접수번호 ' + inquiryId + ' · 영업일 1일 이내에 회신드리겠습니다.', 'success', false, null, true);
             })
             .catch(function (error) {
                 if (error && error.code === 'EMAIL_CLIENT_UNAVAILABLE') {
-                    showMessage('자동 문의 전송 서비스를 불러오지 못했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
+                    showMessage('자동 문의 전송 서비스를 불러오지 못했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
                     return;
                 }
                 if (error && Number(error.status) === 412) {
-                    showMessage('문의 전송 서비스 연결이 만료되었습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
+                    showMessage('문의 전송 서비스 연결이 만료되었습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
                     return;
                 }
                 if (error && Number(error.status) === 429) {
-                    showMessage('요청이 잠시 많아 자동 접수하지 못했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
+                    showMessage('요청이 잠시 많아 자동 접수하지 못했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
                     return;
                 }
-                showMessage('문의 전송에 실패했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref);
+                showMessage('문의 전송에 실패했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
             })
             .then(finishSubmission, finishSubmission);
     });
+
+    if (submitButton) submitButton.type = 'submit';
+    form.classList.add('is-ready');
 }
 
 function applyHubInquiryPrefill(form, referenceNote) {
@@ -427,13 +454,17 @@ function cleanHubReference(value, maxLength) {
 }
 
 function loadTrackRecord() {
-    if (!('fetch' in window)) return;
+    setTrackRecordState('loading');
+    if (!('fetch' in window)) {
+        setTrackRecordState('fallback');
+        return Promise.resolve(false);
+    }
     var controller = 'AbortController' in window ? new AbortController() : null;
     var timeout = window.setTimeout(function () {
         if (controller) controller.abort();
     }, 5000);
 
-    fetch('https://hub.dinoflow.kr/api/summary.json', {
+    return fetch('https://hub.dinoflow.kr/api/summary.json', {
         mode: 'cors',
         signal: controller ? controller.signal : undefined
     })
@@ -442,7 +473,7 @@ function loadTrackRecord() {
             return response.json();
         })
         .then(function (data) {
-            if (!data || !data.totals) return;
+            if (!data || !data.totals) throw new Error('invalid summary');
             setStat('sessions', floorPlus(data.totals.sessions, '회'));
             setStat('hours', floorPlus(data.totals.hours, '시간'));
             setStat('students', floorPlus(data.totals.attendees, '명'));
@@ -453,14 +484,31 @@ function loadTrackRecord() {
                 partnerScope.textContent = (partnerMetric.source || 'DinoFlow 운영 기록') + ', ' +
                     partnerMetric.as_of + ' 기준. ' + partnerMetric.note;
             }
-            renderRecentLectures(data.recent);
+            var hasRecentLectures = renderRecentLectures(data.recent);
+            setTrackRecordState(hasRecentLectures ? 'connected' : 'fallback');
             var footer = document.getElementById('recent-footer-link');
             if (footer && data.upcoming && Number(data.upcoming.count) > 0) {
                 footer.firstChild.textContent = '예정 강의 ' + data.upcoming.count + '건 · 전체 기록 확인 ';
             }
+            return hasRecentLectures;
         })
-        .catch(function () { /* 검증된 정적 폴백 유지 */ })
+        .catch(function () {
+            setTrackRecordState('fallback');
+            return false;
+        })
         .finally(function () { window.clearTimeout(timeout); });
+}
+
+function setTrackRecordState(state) {
+    var status = document.getElementById('recent-status');
+    if (!status) return;
+    var labels = {
+        loading: '확인 중',
+        connected: 'Hub 연동',
+        fallback: '비실시간'
+    };
+    status.dataset.state = labels[state] ? state : 'fallback';
+    status.textContent = labels[state] || labels.fallback;
 }
 
 function floorPlus(value, suffix) {
@@ -478,10 +526,14 @@ function setStat(key, value) {
 
 function renderRecentLectures(recent) {
     var list = document.getElementById('recent-list');
-    if (!list || !Array.isArray(recent) || recent.length === 0) return;
-    list.replaceChildren();
+    if (!list || !Array.isArray(recent) || recent.length === 0) return false;
+    var validLectures = recent.filter(function (lecture) {
+        return lecture && typeof lecture === 'object' &&
+            typeof lecture.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(lecture.date);
+    }).slice(0, 3);
+    if (validLectures.length === 0) return false;
 
-    recent.slice(0, 3).forEach(function (lecture) {
+    var items = validLectures.map(function (lecture) {
         var item = document.createElement('li');
         item.className = 'recent-item';
         var link = document.createElement('a');
@@ -492,8 +544,10 @@ function renderRecentLectures(recent) {
         link.appendChild(makeSpan('recent-client', lecture.client || '기업·기관'));
         link.appendChild(makeSpan('recent-program', lecture.program || lecture.category || 'AI 실무교육'));
         item.appendChild(link);
-        list.appendChild(item);
+        return item;
     });
+    list.replaceChildren.apply(list, items);
+    return true;
 }
 
 function makeSpan(className, text) {
