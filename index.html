@@ -21,21 +21,31 @@
     <link rel="icon" type="image/png" href="images/dinoflow-logo.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-    <link rel="stylesheet" href="/css/style.min.css?v=20260715-1">
+    <link rel="stylesheet" href="/css/style.min.css?v=20260815-1">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
+      "@id": "https://dinoflow.kr/#organization",
       "name": "DinoFlow",
       "alternateName": ["디노플로우", "AI.Edu"],
       "url": "https://dinoflow.kr/",
       "logo": "https://dinoflow.kr/images/dinoflow-logo.png",
       "description": "기업과 기관을 위한 맞춤형 AI 실무교육을 설계하고 운영합니다.",
+      "founder": {
+        "@type": "Person",
+        "@id": "https://dinoflow.kr/about#person",
+        "name": "고윤재",
+        "alternateName": "디노",
+        "jobTitle": "AI 교육 강사 · 디노플로우 대표",
+        "url": "https://dinoflow.kr/about"
+      },
       "address": { "@type": "PostalAddress", "addressCountry": "KR", "addressLocality": "Seoul" },
       "email": "godino2895@gmail.com",
       "telephone": "+82-10-4365-2823",
       "taxID": "699-33-01694",
-      "areaServed": "KR"
+      "areaServed": "KR",
+      "sameAs": ["https://hub.dinoflow.kr", "https://blog.dinoflow.kr"]
     }
     </script>
     <script id="emailjs-sdk" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous" async></script>
@@ -57,6 +67,7 @@
                     <li><a href="#fit">교육 설계</a></li>
                     <li><a href="#programs">프로그램</a></li>
                     <li><a href="#reference">레퍼런스</a></li>
+                    <li><a href="/about">소개</a></li>
                     <li><a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer">활동 기록 <span aria-hidden="true">↗</span></a></li>
                     <li><a href="https://blog.dinoflow.kr" target="_blank" rel="noopener noreferrer">자료실 <span aria-hidden="true">↗</span></a></li>
                     <li><a href="#contact" class="nav-cta">교육 문의</a></li>
@@ -282,6 +293,10 @@
                     </dl>
                     <div class="about-links"><a href="https://blog.dinoflow.kr" target="_blank" rel="noopener noreferrer">교육 자료실 <span aria-hidden="true">↗</span></a><a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer">전체 활동 기록 <span aria-hidden="true">↗</span></a></div>
                 </div>
+                <a class="about-profile-card reveal" href="/about" aria-label="대표 고윤재 소개 페이지로 이동">
+                    <img src="images/profile_0826.webp" alt="기업 강의장에서 강의 중인 디노플로우 대표 고윤재" loading="lazy" width="864" height="1184">
+                    <span class="about-profile-meta"><strong>고윤재 (디노)</strong><small>디노플로우 대표 · AI 교육 강사</small><em>소개 보기 →</em></span>
+                </a>
             </div>
         </section>
 
@@ -336,8 +351,8 @@
     <footer class="site-footer">
         <div class="container footer-grid">
             <div><a href="#hero" class="footer-brand">DinoFlow</a><p>교육에서 업무 변화까지 설계합니다.</p></div>
-            <div class="footer-links"><a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer">활동 허브</a><a href="https://blog.dinoflow.kr" target="_blank" rel="noopener noreferrer">자료실</a><a href="#contact">교육 문의</a></div>
-            <div class="footer-business"><p>DinoFlow 디노플로우</p><p>사업자등록번호 699-33-01694 · 대표전화 010-4365-2823 · 서울특별시</p><p>&copy; 2026 DinoFlow. All rights reserved.</p></div>
+            <div class="footer-links"><a href="/about">소개</a><a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer">활동 허브</a><a href="https://blog.dinoflow.kr" target="_blank" rel="noopener noreferrer">자료실</a><a href="#contact">교육 문의</a></div>
+            <div class="footer-business"><p>DinoFlow 디노플로우 · 대표 고윤재</p><p>사업자등록번호 699-33-01694 · 대표전화 010-4365-2823 · 서울특별시</p><p>&copy; 2026 DinoFlow. All rights reserved.</p></div>
         </div>
     </footer>
     <script src="/js/main.min.js?v=20260715-1"></script>

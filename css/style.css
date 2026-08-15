@@ -485,3 +485,52 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .hero-inner { padding-block: 32px; }
     .section { padding-block: 32px; break-inside: avoid; }
 }
+
+/* ---------- Profile page (/about) ---------- */
+.profile-hero { padding-top: calc(var(--header-height) + var(--space-16)); background: var(--white); border-bottom: 1px solid var(--line); }
+.profile-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 72px; align-items: center; }
+.profile-copy h1 { font-size: 3.4rem; line-height: 1.12; font-weight: 800; letter-spacing: -0.01em; }
+.profile-alias { display: block; margin-top: 6px; color: var(--muted); font-size: 1.05rem; font-weight: 700; letter-spacing: 0.02em; }
+.profile-copy > p:not(.kicker) { max-width: 56ch; margin-top: 20px; color: var(--ink-soft); }
+.profile-copy > p strong { color: var(--ink); }
+.profile-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+.profile-actions .button-ghost { color: var(--forest); border: 1px solid var(--forest); }
+.profile-actions .button-ghost:hover { background: var(--forest-pale); }
+.profile-portrait { margin: 0; }
+.profile-portrait img { display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: var(--shadow-sm); }
+.profile-portrait figcaption { margin-top: 10px; color: var(--muted); font-size: 0.75rem; text-align: right; }
+.profile-record { background: var(--paper); }
+.profile-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; max-width: 860px; margin-top: var(--space-12); border-top: 2px solid var(--ink); }
+.profile-stats .text-link { padding-block: 0; font-size: 0.9rem; }
+.profile-fields { background: var(--white); }
+.profile-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-16) 72px; }
+.profile-philosophy { background: var(--paper); }
+.profile-quote { max-width: 720px; margin: var(--space-12) 0 0; padding: 26px 32px; color: var(--forest-dark); background: var(--forest-pale); border-left: 3px solid var(--forest); border-radius: 4px; }
+.profile-quote p { font-size: 1.2rem; font-weight: 750; line-height: 1.55; }
+.profile-principles { max-width: 720px; margin-top: var(--space-8); }
+.profile-principles li { position: relative; padding: 10px 0 10px 22px; color: var(--ink-soft); border-bottom: 1px solid var(--line); }
+.profile-principles li::before { content: ""; position: absolute; left: 0; top: 19px; width: 8px; height: 8px; background: var(--forest); border-radius: 2px; }
+.profile-channels { background: var(--white); }
+.profile-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; margin-top: var(--space-16); padding: 28px 32px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; }
+.profile-cta p { max-width: 52ch; color: var(--ink-soft); }
+.profile-cta p strong { color: var(--ink); }
+
+/* 홈 about 섹션 프로필 카드 */
+.about-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; align-items: center; max-width: none; }
+.about-profile-card { display: block; max-width: 300px; text-decoration: none; color: inherit; }
+.about-profile-card img { display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: var(--shadow-sm); transition: transform 160ms ease; }
+@media (hover: hover) { .about-profile-card:hover img { transform: translateY(-4px); } }
+.about-profile-meta { display: block; margin-top: 14px; }
+.about-profile-meta strong { display: block; font-size: 1.05rem; font-weight: 800; }
+.about-profile-meta small { display: block; margin-top: 2px; color: var(--muted); font-size: 0.8rem; }
+.about-profile-meta em { display: inline-block; margin-top: 10px; color: var(--forest); font-size: 0.85rem; font-style: normal; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 900px) {
+    .profile-layout { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+    .profile-copy h1 { font-size: 2.5rem; }
+    .profile-portrait { max-width: 340px; }
+    .profile-stats { grid-template-columns: minmax(0, 1fr); }
+    .profile-columns { grid-template-columns: minmax(0, 1fr); }
+    .profile-cta { flex-direction: column; align-items: flex-start; }
+    .about-layout { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+}

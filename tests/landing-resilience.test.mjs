@@ -33,10 +33,23 @@ test("contact form never posts Korean inquiry fields through a mailto action", (
   assert.match(source, /form\.classList\.add\('is-ready'\)/);
 });
 
-test("landing copy stays organization-framed without personal names", () => {
-  assert.doesNotMatch(html, /고윤재/);
-  assert.doesNotMatch(html, /대표 강사/);
-  assert.doesNotMatch(html, /"founder"/);
+test("landing intentionally exposes the founder identity for search and AI answers", () => {
+  // 2026-08-15 방향 전환: 조직 중심 익명 표기 → 고윤재(디노) 엔티티 의도 노출 (AEO/SEO)
+  assert.match(html, /고윤재/);
+  assert.match(html, /"founder"/);
+  assert.match(html, /"@id": "https:\/\/dinoflow\.kr\/about#person"/);
+  assert.match(html, /href="\/about"/);
+});
+
+test("about page carries the person entity with sameAs channels", () => {
+  const aboutHtml = readFileSync(new URL("../about.html", import.meta.url), "utf8");
+  assert.match(aboutHtml, /고윤재/);
+  assert.match(aboutHtml, /"@type": "Person"/);
+  assert.match(aboutHtml, /"sameAs"/);
+  assert.match(aboutHtml, /rel="canonical" href="https:\/\/dinoflow\.kr\/about"/);
+  assert.match(aboutHtml, /href="\/css\/style\.min\.css\?v=\d{8}-\d+"/);
+  assert.match(aboutHtml, /src="\/js\/main\.min\.js\?v=\d{8}-\d+"/);
+  assert.match(aboutHtml, /data-stat="sessions"/);
 });
 
 test("recent lecture fallback never claims to be live", () => {
