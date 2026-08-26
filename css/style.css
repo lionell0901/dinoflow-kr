@@ -172,6 +172,25 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .section-heading h2 { font-size: 3rem; line-height: 1.2; font-weight: 790; }
 .section-heading > p:last-child:not(.kicker) { max-width: 65ch; margin-top: var(--space-6); color: var(--ink-soft); font-size: 1.05rem; }
 
+/* 연간 단위 운영 (전사 과정 레퍼런스) */
+.annual { background: var(--white); }
+.annual-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8); margin-top: var(--space-16); }
+.annual-case { display: flex; flex-direction: column; min-width: 0; padding: 30px 30px 26px; background: var(--paper); border: 1px solid var(--line); border-top: 2px solid var(--ink); border-radius: 6px; }
+.annual-tag { display: inline-flex; align-items: center; padding: 5px 10px; color: var(--muted); background: var(--white); border: 1px solid var(--line); border-radius: 3px; font-size: .72rem; font-weight: 800; }
+.annual-tag.is-live { color: var(--forest-dark); background: var(--forest-pale); border-color: #b6cec3; }
+.annual-case h3 { margin-top: 16px; font-size: 1.5rem; line-height: 1.28; }
+.annual-period { margin-top: 6px; color: var(--coral); font-size: .8rem; font-weight: 800; }
+.annual-case > p { margin-top: 18px; color: var(--ink-soft); font-size: .95rem; }
+.annual-tracks { margin-top: 22px; border-top: 1px solid var(--line); }
+.annual-tracks li { display: grid; grid-template-columns: 118px minmax(0, 1fr); gap: 14px; align-items: baseline; min-width: 0; padding-block: 11px; border-bottom: 1px solid var(--line); }
+.annual-tracks strong { color: var(--forest); font-size: .85rem; font-weight: 800; }
+.annual-tracks span { color: var(--muted); font-size: .82rem; }
+.annual-figures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: auto; padding-top: 22px; }
+.annual-figures dt { color: var(--muted); font-size: .72rem; font-weight: 700; }
+.annual-figures dd { margin-top: 4px; font-size: 1.15rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.annual-note { margin-top: var(--space-8); color: var(--muted); font-size: .85rem; }
+.annual-note a { color: var(--forest); font-weight: 750; text-decoration: underline; text-underline-offset: 3px; }
+
 .fit { background: var(--paper); }
 .fit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: var(--space-16); border-top: 2px solid var(--ink); }
 .fit-item { padding: 28px 28px 8px 0; }
@@ -359,6 +378,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .process-layout, .contact-layout { gap: 5%; }
     .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1.35fr repeat(2, 0.8fr); height: 720px; }
     .photo-grid .photo-main { grid-column: 1 / 3; grid-row: 1; }
+    .annual-grid { grid-template-columns: 1fr; gap: var(--space-6); }
     .evidence-grid { gap: 32px; }
     .footer-grid { gap: 32px; }
 }
@@ -449,6 +469,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .photo-grid figcaption { gap: 2px; padding: 9px 10px; }
     .photo-grid figcaption strong, .photo-grid .photo-main figcaption strong { font-size: 0.72rem; }
     .photo-grid figcaption span, .photo-grid .photo-main figcaption span { font-size: 0.62rem; }
+    .annual-case { padding: 24px 20px; }
+    .annual-case h3 { font-size: 1.25rem; }
+    .annual-tracks li { grid-template-columns: 1fr; gap: 2px; }
+    .annual-figures { grid-template-columns: 1fr 1fr; }
     .evidence-stats strong { font-size: 1.6rem; }
     .recent-lectures { padding: 22px 18px; }
     .recent-item a, .recent-fallback { grid-template-columns: 64px 1fr; }

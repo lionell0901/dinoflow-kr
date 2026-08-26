@@ -478,6 +478,11 @@ function loadTrackRecord() {
             setStat('hours', floorPlus(data.totals.hours, '시간'));
             setStat('students', floorPlus(data.totals.attendees, '명'));
             setStat('partners', floorPlus(data.totals.partner_organizations_min, '개'));
+            if (data.totals.b2b) {
+                setStat('b2b-sessions', floorPlus(data.totals.b2b.sessions, '회'));
+                setStat('b2b-students', floorPlus(data.totals.b2b.attendees, '명'));
+                setStat('b2b-clients', floorPlus(data.totals.b2b.clients, '개사'));
+            }
             var partnerMetric = data.totals.partner_organizations;
             var partnerScope = document.getElementById('partner-scope');
             if (partnerScope && partnerMetric && partnerMetric.as_of && partnerMetric.note) {
