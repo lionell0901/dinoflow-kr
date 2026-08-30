@@ -3,8 +3,15 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+const aboutHtml = readFileSync(new URL("../about.html", import.meta.url), "utf8");
+const insuranceHtml = readFileSync(
+  new URL("../insurance-ai-training.html", import.meta.url),
+  "utf8",
+);
 const source = readFileSync(new URL("../js/main.js", import.meta.url), "utf8");
 const css = readFileSync(new URL("../css/style.css", import.meta.url), "utf8");
+const llms = readFileSync(new URL("../llms.txt", import.meta.url), "utf8");
+const sitemap = readFileSync(new URL("../sitemap.xml", import.meta.url), "utf8");
 const vercel = JSON.parse(
   readFileSync(new URL("../vercel.json", import.meta.url), "utf8"),
 );
@@ -28,7 +35,7 @@ test("contact form never posts Korean inquiry fields through a mailto action", (
   assert.match(css, /\.contact-form\.is-ready \.submit-button \{ display: inline-flex; \}/);
   assert.match(css, /\.contact-form-fields \{ display: none; \}/);
   assert.match(css, /\.contact-form\.is-ready \.contact-form-fields \{ display: block; \}/);
-  assert.match(html, /contact-fallback-note[\s\S]*?카카오톡으로 상담[\s\S]*?이메일로 문의/);
+  assert.match(html, /contact-fallback-note[\s\S]*?카카오톡 상담[\s\S]*?이메일 문의/);
   assert.match(source, /submitButton\.type = 'submit'/);
   assert.match(source, /form\.classList\.add\('is-ready'\)/);
 });
@@ -42,7 +49,6 @@ test("landing intentionally exposes the founder identity for search and AI answe
 });
 
 test("about page carries the person entity with sameAs channels", () => {
-  const aboutHtml = readFileSync(new URL("../about.html", import.meta.url), "utf8");
   assert.match(aboutHtml, /고윤재/);
   assert.match(aboutHtml, /"@type": "Person"/);
   assert.match(aboutHtml, /"sameAs"/);
@@ -52,16 +58,47 @@ test("about page carries the person entity with sameAs channels", () => {
   assert.match(aboutHtml, /data-stat="sessions"/);
 });
 
-test("recent lecture fallback never claims to be live", () => {
+test("recent lecture fallback is a snippet-safe public record handoff", () => {
   assert.doesNotMatch(html, />LIVE</);
-  assert.match(html, /id="recent-status"[^>]+data-state="fallback">비실시간</);
-  assert.match(html, /최근 강의는 활동 허브에서 확인/);
+  assert.match(html, /id="recent-status"[^>]+data-state="fallback"[^>]+data-nosnippet>공개 기록</);
+  assert.match(html, /최신 강의 기록 확인/);
+  assert.doesNotMatch(html, /Hub 연결 전 정적 안내|비실시간/);
   assert.doesNotMatch(html, /recent-fallback[^>]*>[^<]*금융·보험/);
 });
 
+test("insurance landing exposes commercial intent, safeguards, and structured data", () => {
+  assert.match(
+    insuranceHtml,
+    /rel="canonical" href="https:\/\/dinoflow\.kr\/insurance-ai-training"/,
+  );
+  assert.match(insuranceHtml, /"@type": "Service"/);
+  assert.match(insuranceHtml, /"@type": "FAQPage"/);
+  assert.match(insuranceHtml, /"@type": "BreadcrumbList"/);
+  ["조회", "보장분석", "리크루팅", "민원 응대"].forEach((useCase) => {
+    assert.match(insuranceHtml, new RegExp(useCase));
+  });
+  assert.match(insuranceHtml, /가상·비식별 자료/);
+  assert.match(insuranceHtml, /AI 결과는 검토 전 초안/);
+  assert.match(insuranceHtml, /삼성화재 영업관리자/);
+  assert.match(insuranceHtml, /공식 추천·승인을 의미하지 않습니다/);
+  assert.match(sitemap, /https:\/\/dinoflow\.kr\/insurance-ai-training/);
+  assert.match(llms, /보험사 AI 실무교육/);
+});
+
+test("public surfaces use only the official email and Kakao contact", () => {
+  const publicSources = [html, aboutHtml, insuranceHtml, llms, source].join("\n");
+  assert.match(publicSources, /godino2895@gmail\.com/);
+  assert.match(publicSources, /https:\/\/open\.kakao\.com\/me\/tutordino/);
+  assert.doesNotMatch(publicSources, /open\.kakao\.com\/o\/suYsYaxf/);
+  assert.doesNotMatch(publicSources, /010-4365-2823|\+82-10-4365-2823/);
+  assert.doesNotMatch([html, aboutHtml, insuranceHtml].join("\n"), /AI\.Edu/);
+});
+
 test("production HTML serves versioned minified assets", () => {
-  assert.match(html, /href="\/css\/style\.min\.css\?v=\d{8}-\d+"/);
-  assert.match(html, /src="\/js\/main\.min\.js\?v=\d{8}-\d+"/);
+  [html, aboutHtml, insuranceHtml].forEach((page) => {
+    assert.match(page, /href="\/css\/style\.min\.css\?v=\d{8}-\d+"/);
+    assert.match(page, /src="\/js\/main\.min\.js\?v=\d{8}-\d+"/);
+  });
   assert.doesNotMatch(html, /href="\/css\/style\.css\?v=/);
   assert.doesNotMatch(html, /src="\/js\/main\.js\?v=/);
 });

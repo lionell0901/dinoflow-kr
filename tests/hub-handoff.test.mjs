@@ -161,14 +161,14 @@ test("anchor targets receive programmatic focus without an extra scroll", () => 
   assert.equal(focusOptions.preventScroll, true);
 });
 
-test("track record without fetch stays an explicit non-live fallback", async () => {
+test("track record without fetch stays an explicit public-record fallback", async () => {
   const payload = loadScript("");
   const status = { dataset: {}, textContent: "" };
   payload.elements.set("recent-status", status);
 
   assert.equal(await payload.context.loadTrackRecord(), false);
   assert.equal(status.dataset.state, "fallback");
-  assert.equal(status.textContent, "비실시간");
+  assert.equal(status.textContent, "공개 기록");
 });
 
 test("track record state only claims a Hub connection explicitly", () => {
@@ -182,7 +182,7 @@ test("track record state only claims a Hub connection explicitly", () => {
 
   payload.context.setTrackRecordState("unknown");
   assert.equal(status.dataset.state, "fallback");
-  assert.equal(status.textContent, "비실시간");
+  assert.equal(status.textContent, "공개 기록");
 });
 
 test("malformed Hub recent entries leave the honest static fallback intact", () => {

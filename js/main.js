@@ -200,7 +200,7 @@ function setupContactForm() {
         if (includeAlternatives) {
             message.appendChild(document.createTextNode(' '));
             var kakao = document.createElement('a');
-            kakao.href = 'https://open.kakao.com/o/suYsYaxf';
+            kakao.href = 'https://open.kakao.com/me/tutordino';
             kakao.target = '_blank';
             kakao.rel = 'noopener noreferrer';
             kakao.textContent = '카카오톡 상담';
@@ -246,7 +246,7 @@ function setupContactForm() {
         var lines = [
             '접수번호: ' + inquiryId,
             '',
-            '자동 문의 전송에 실패해 이메일로 문의드립니다.',
+            '웹 문의 내용을 이메일로 이어서 보냅니다.',
             '문의 내용을 아래에 입력해주세요.'
         ];
         return 'mailto:godino2895@gmail.com?subject=' +
@@ -349,18 +349,18 @@ function setupContactForm() {
             })
             .catch(function (error) {
                 if (error && error.code === 'EMAIL_CLIENT_UNAVAILABLE') {
-                    showMessage('자동 문의 전송 서비스를 불러오지 못했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
+                    showMessage('카카오톡 또는 이메일로 문의를 이어서 보내실 수 있습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
                     return;
                 }
                 if (error && Number(error.status) === 412) {
-                    showMessage('문의 전송 서비스 연결이 만료되었습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
+                    showMessage('카카오톡 또는 이메일로 문의를 이어서 보내주세요. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
                     return;
                 }
                 if (error && Number(error.status) === 429) {
-                    showMessage('요청이 잠시 많아 자동 접수하지 못했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
+                    showMessage('잠시 후 다시 보내거나 카카오톡·이메일을 이용해주세요. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
                     return;
                 }
-                showMessage('문의 전송에 실패했습니다. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
+                showMessage('카카오톡 또는 이메일로 문의를 이어서 보내주세요. 입력 내용은 유지했습니다.', 'error', true, emailHref, true);
             })
             .then(finishSubmission, finishSubmission);
     });
@@ -510,7 +510,7 @@ function setTrackRecordState(state) {
     var labels = {
         loading: '확인 중',
         connected: 'Hub 연동',
-        fallback: '비실시간'
+        fallback: '공개 기록'
     };
     status.dataset.state = labels[state] ? state : 'fallback';
     status.textContent = labels[state] || labels.fallback;

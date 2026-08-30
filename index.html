@@ -21,14 +21,14 @@
     <link rel="icon" type="image/png" href="images/dinoflow-logo.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-    <link rel="stylesheet" href="/css/style.min.css?v=20260826-1">
+    <link rel="stylesheet" href="/css/style.min.css?v=20260826-2">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "@id": "https://dinoflow.kr/#organization",
       "name": "DinoFlow",
-      "alternateName": ["디노플로우", "AI.Edu"],
+      "alternateName": "디노플로우",
       "url": "https://dinoflow.kr/",
       "logo": "https://dinoflow.kr/images/dinoflow-logo.png",
       "description": "대기업 전사 AI 역량 과정을 연간 단위로 설계·운영하는 기업 교육 회사입니다. 대상별 과정군 편성, 실무 중심 실습, 사전·사후 효과 측정까지 하나의 과정으로 운영합니다.",
@@ -42,9 +42,17 @@
       },
       "address": { "@type": "PostalAddress", "addressCountry": "KR", "addressLocality": "Seoul" },
       "email": "godino2895@gmail.com",
-      "telephone": "+82-10-4365-2823",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "교육 문의",
+        "email": "godino2895@gmail.com",
+        "url": "https://open.kakao.com/me/tutordino",
+        "areaServed": "KR",
+        "availableLanguage": "ko"
+      },
       "taxID": "699-33-01694",
       "areaServed": "KR",
+      "knowsAbout": ["기업 AI 교육", "보험사 AI 실무교육", "생성형 AI 업무 적용", "AI 업무전환"],
       "sameAs": ["https://hub.dinoflow.kr", "https://blog.dinoflow.kr"]
     }
     </script>
@@ -92,9 +100,8 @@
                     <a href="#programs" class="button button-ghost">프로그램 확인</a>
                 </div>
                 <dl class="hero-facts">
-                    <div><dt>기업·기관 출강</dt><dd data-stat="b2b-sessions">60+회</dd></div>
-                    <div><dt>기업 교육 참여자</dt><dd data-stat="b2b-students">1,100+명</dd></div>
-                    <div><dt>협업 기업·기관</dt><dd data-stat="partners">20+개</dd></div>
+                    <div><dt>누적 강의 시간</dt><dd data-stat="hours">470+시간</dd></div>
+                    <div><dt>누적 교육 참여자</dt><dd data-stat="students">2,300+명</dd></div>
                 </dl>
             </div>
         </section>
@@ -122,14 +129,14 @@
             <div class="container">
                 <div class="section-heading reveal">
                     <p class="kicker">연간 단위 운영</p>
-                    <h2 id="annual-title">단발 특강이 아니라<br>전사 교육 과정을 맡습니다</h2>
-                    <p>대상을 나눠 과정군을 설계하고, 회차를 이어가며 연간 단위로 운영합니다. 아래는 현재 진행 중이거나 정기 운영해 온 기록입니다.</p>
+                    <h2 id="annual-title">첫 교육이<br>연간 과정이 됩니다</h2>
+                    <p>아래 두 조직 모두 첫 교육에서 시작했습니다. 대상을 나눠 과정군을 설계하고, 회차를 이어가며 연간 단위로 운영합니다.</p>
                 </div>
                 <div class="annual-grid">
                     <article class="annual-case reveal">
                         <header>
-                            <span class="annual-tag is-live">전사 과정 · 진행 중</span>
-                            <h3>삼성화재 전사 AI 역량 과정</h3>
+                            <span class="annual-tag is-live">연간 과정 · 진행 중</span>
+                            <h3>삼성화재 AI 역량 과정</h3>
                             <p class="annual-period">2026년 4월 ~ 진행 중</p>
                         </header>
                         <p>신입 현장 인력부터 영업관리자·임원까지 대상을 나눠 네 개 과정군으로 설계하고, 회차를 이어가며 운영하고 있습니다.</p>
@@ -164,36 +171,22 @@
                         </dl>
                     </article>
                 </div>
-                <p class="annual-note">두 곳 모두 첫 교육 이후 재의뢰가 이어진 조직입니다. 전체 운영 기록은 <a href="https://hub.dinoflow.kr/lectures" target="_blank" rel="noopener noreferrer">활동 허브</a>에서 확인하실 수 있습니다.</p>
+                <p class="annual-note">전체 운영 기록은 <a href="https://hub.dinoflow.kr/lectures" target="_blank" rel="noopener noreferrer">활동 허브</a>에서 확인하실 수 있습니다.</p>
             </div>
         </section>
 
-        <section class="fit section" id="fit" aria-labelledby="fit-title">
-            <div class="container">
+        <section class="process section" id="fit" aria-labelledby="fit-title">
+            <div class="container process-layout">
                 <div class="section-heading reveal">
                     <p class="kicker">DinoFlow 교육 방식</p>
-                    <h2 id="fit-title">교육 전 설계부터<br>사후 활용까지</h2>
+                    <h2 id="fit-title">목표 설정부터<br>사후 관리까지</h2>
                 </div>
-                <div class="fit-grid">
-                    <article class="fit-item reveal">
-                        <span class="fit-number">01</span>
-                        <h3>기업 맞춤형 설계</h3>
-                        <p>업종, 직무, AI 활용 수준을 먼저 확인하고 우리 조직이 실제로 하는 업무를 커리큘럼에 반영합니다.</p>
-                        <ul><li>사전 설문·담당자 인터뷰</li><li>업종·직무 사례 반영</li><li>수준별 난이도 조정</li></ul>
-                    </article>
-                    <article class="fit-item reveal">
-                        <span class="fit-number">02</span>
-                        <h3>실무 중심 참여 교육</h3>
-                        <p>도구 설명보다 직접 만들고 써보는 실습에 집중해, 참여자가 교육 시간 안에 업무 결과물을 완성합니다.</p>
-                        <ul><li>업무 분해·AI 개입 설계 워크숍</li><li>실제 업무 기반 실습</li><li>온라인·오프라인 운영</li><li>단회차·다회차 구성</li></ul>
-                    </article>
-                    <article class="fit-item reveal">
-                        <span class="fit-number">03</span>
-                        <h3>성과 측정과 사후 관리</h3>
-                        <p>결과물과 워크북을 현업에서 다시 쓰고, 필요하면 설문과 리포트로 변화와 다음 교육 방향을 확인합니다.</p>
-                        <ul><li>업무 결과물·워크북 제공</li><li>조직 재사용 템플릿화</li><li>사전·사후 효과 측정</li><li>후속 교육 방향 제안</li></ul>
-                    </article>
-                </div>
+                <ol class="process-list">
+                    <li class="reveal"><span>1</span><div><h3>교육 목표 설정</h3><p>사전 설문과 담당자 인터뷰로 교육 대상과 해결할 업무 문제, 인원·일정, 기대 성과를 정합니다.</p></div></li>
+                    <li class="reveal"><span>2</span><div><h3>맞춤 교육 설계</h3><p>업종·직무·활용 수준에 맞춰 커리큘럼과 실습 방식, 시간표와 워크북을 설계합니다.</p></div></li>
+                    <li class="reveal"><span>3</span><div><h3>실습 중심 교육</h3><p>조직의 실제 업무를 실습 과제로 바꿔 참여자가 교육 시간 안에 결과물을 완성합니다. 온·오프라인, 단회차·다회차 모두 운영합니다.</p></div></li>
+                    <li class="reveal"><span>4</span><div><h3>성과 확인·사후 관리</h3><p>모범 사례를 조직 템플릿으로 정리해 전달하고, 사전·사후 설문과 리포트로 변화를 확인해 후속 교육 방향을 제안합니다.</p></div></li>
+                </ol>
             </div>
         </section>
 
@@ -208,13 +201,13 @@
                     <details class="program-item reveal" open>
                         <summary>
                             <span class="program-index">01</span>
-                            <span class="program-name"><strong>AI First 업무전환 과정</strong><small>실무자 · 팀 단위 · 조직 전환 담당</small></span>
+                            <span class="program-name"><strong>AI First 업무전환 과정</strong><small>실무자 · 관리자 · 조직 전환 담당</small></span>
                             <span class="program-time">4시간 압축<br>4주 · 6~8주</span>
                             <span class="program-toggle" aria-hidden="true"></span>
                         </summary>
                         <div class="program-content">
                             <p>툴을 배우는 게 아니라, 일하는 방식을 다시 설계합니다. 업무를 공정 단위로 분해하고 AI가 먼저 할 일과 사람이 판단할 일을 나눈 뒤, 실제 업무 하나를 전환해 조직 표준으로 남깁니다.</p>
-                            <ul><li>업무 분해와 AI 개입 설계 워크숍</li><li>실제 업무 1건 전환과 비포·애프터 비교</li><li>동료 피드백으로 모범 사례 도출</li><li>재사용 가능한 조직 템플릿·가이드라인 정리</li></ul>
+                            <ul><li>업무 분해와 AI 개입 설계 워크숍</li><li>실제 업무 1건 전환과 비포·애프터 비교</li><li>동료 피드백으로 모범 사례 도출</li><li>재사용 가능한 조직 템플릿·가이드라인 정리</li><li>관리자·임원 트랙: 도입 우선순위·확산 기준 설계</li></ul>
                             <p class="program-output"><strong>완성 결과</strong> 조직 AI 활용 사례 템플릿·가이드라인</p>
                         </div>
                     </details>
@@ -227,39 +220,26 @@
                         </summary>
                         <div class="program-content">
                             <p>ChatGPT, Claude, Gemini를 업무에 맞게 선택하고 결과를 검증하는 기본 역량을 만듭니다.</p>
-                            <ul><li>업무별 AI 도구 선택 기준</li><li>원하는 결과를 얻는 프롬프트 원리</li><li>검색·요약·보고서 실습</li><li>팩트체크와 보안 유의사항</li></ul>
+                            <ul><li>업무별 AI 도구 선택 기준</li><li>원하는 결과를 얻는 프롬프트 원리</li><li>검색·요약·보고서 실습</li><li>업무 전용 AI 비서(GPTs·Gems) 만들기</li><li>팩트체크와 보안 유의사항</li></ul>
                             <p class="program-output"><strong>완성 결과</strong> 내 업무에 바로 쓰는 프롬프트 세트</p>
                         </div>
                     </details>
                     <details class="program-item reveal">
                         <summary>
                             <span class="program-index">03</span>
-                            <span class="program-name"><strong>업무 전용 AI 비서 만들기</strong><small>실무자 · 팀 단위</small></span>
-                            <span class="program-time">2~4시간</span>
-                            <span class="program-toggle" aria-hidden="true"></span>
-                        </summary>
-                        <div class="program-content">
-                            <p>반복 지시를 줄이고 팀의 기준과 자료를 반영한 업무 전용 AI를 직접 구축합니다.</p>
-                            <ul><li>GPTs·Projects·Gems 설계</li><li>업무 지시서와 지식 파일 구성</li><li>결과 품질 테스트와 개선</li><li>팀 공유·운영 방법</li></ul>
-                            <p class="program-output"><strong>완성 결과</strong> 참여자별 업무 전용 AI 비서 1개</p>
-                        </div>
-                    </details>
-                    <details class="program-item reveal">
-                        <summary>
-                            <span class="program-index">04</span>
                             <span class="program-name"><strong>직무 특화 AI 실무</strong><small>기획·인사·영업·마케팅·디자인</small></span>
                             <span class="program-time">2~4시간</span>
                             <span class="program-toggle" aria-hidden="true"></span>
                         </summary>
                         <div class="program-content">
                             <p>직무에서 시간이 많이 드는 업무를 골라 도구와 워크플로우를 집중 훈련합니다.</p>
-                            <ul><li>문서 분석·리서치·보고서</li><li>영업·고객 커뮤니케이션</li><li>콘텐츠 기획과 이미지 제작</li><li>데이터 수집·정리·대시보드</li></ul>
-                            <p class="program-output"><strong>완성 결과</strong> 직무별 반복 업무 워크플로우</p>
+                            <ul><li>문서 분석·리서치·보고서</li><li>영업·고객 커뮤니케이션</li><li>콘텐츠 기획과 이미지·영상 제작</li><li>데이터 수집·정리·대시보드</li></ul>
+                            <p class="program-output"><strong>완성 결과</strong> 직무별 반복 업무 워크플로우<br><a class="program-detail-link" href="/insurance-ai-training">보험 영업 현장 AI 교육 상세 보기 →</a></p>
                         </div>
                     </details>
                     <details class="program-item reveal">
                         <summary>
-                            <span class="program-index">05</span>
+                            <span class="program-index">04</span>
                             <span class="program-name"><strong>바이브코딩 &amp; 업무 자동화</strong><small>비개발자 · 기획자 · 혁신 담당자</small></span>
                             <span class="program-time">3~6시간</span>
                             <span class="program-toggle" aria-hidden="true"></span>
@@ -270,53 +250,11 @@
                             <p class="program-output"><strong>완성 결과</strong> 실제로 작동하는 소규모 업무 도구</p>
                         </div>
                     </details>
-                    <details class="program-item reveal">
-                        <summary>
-                            <span class="program-index">06</span>
-                            <span class="program-name"><strong>AI 미디어 &amp; 콘텐츠 제작</strong><small>마케팅 · 홍보 · 영업 지원</small></span>
-                            <span class="program-time">3~5시간</span>
-                            <span class="program-toggle" aria-hidden="true"></span>
-                        </summary>
-                        <div class="program-content">
-                            <p>이미지·영상·카드뉴스를 AI로 직접 제작해, 외주 없이 홍보 콘텐츠를 만드는 흐름을 익힙니다.</p>
-                            <ul><li>브랜드 톤에 맞춘 이미지 생성</li><li>대본부터 영상 편집까지의 자동화</li><li>채널별 카드뉴스·홍보물 제작</li><li>사내 검수 기준과 저작권 유의사항</li></ul>
-                            <p class="program-output"><strong>완성 결과</strong> 현업에 바로 쓰는 홍보 콘텐츠 세트</p>
-                        </div>
-                    </details>
-                    <details class="program-item reveal">
-                        <summary>
-                            <span class="program-index">07</span>
-                            <span class="program-name"><strong>AI 리더십 &amp; 조직 도입 전략</strong><small>임원 · 관리자 · 교육 담당</small></span>
-                            <span class="program-time">2~4시간</span>
-                            <span class="program-toggle" aria-hidden="true"></span>
-                        </summary>
-                        <div class="program-content">
-                            <p>도구 사용법이 아니라, 팀에 AI를 정착시키는 관리자의 판단 기준을 다룹니다.</p>
-                            <ul><li>조직 업무별 AI 도입 우선순위</li><li>데이터 취급·보안 가드레일 설정</li><li>구성원 수준차 관리와 확산 방법</li><li>도입 성과를 확인하는 지표 설계</li></ul>
-                            <p class="program-output"><strong>완성 결과</strong> 우리 조직의 AI 도입 우선순위와 실행 항목</p>
-                        </div>
-                    </details>
                 </div>
                 <div class="program-note reveal">
-                    <p><strong>어떤 프로그램인지 아직 정하지 못해도 괜찮습니다.</strong> 대상, 인원, 교육 목표만 알려주시면 적합한 구성을 먼저 제안합니다.</p>
-                    <a href="#contact">조건만 전달하고 제안받기 <span aria-hidden="true">→</span></a>
+                    <p><strong>여기 없는 주제도 설계합니다.</strong> AI 미디어 제작, 경영진 도입 전략 등 목표에 맞춰 과정을 새로 구성합니다.</p>
+                    <a href="#contact">대상·인원·일정 보내고 제안받기 <span aria-hidden="true">→</span></a>
                 </div>
-            </div>
-        </section>
-
-        <section class="process section" id="process" aria-labelledby="process-title">
-            <div class="container process-layout">
-                <div class="section-heading reveal">
-                    <p class="kicker">도입 과정</p>
-                    <h2 id="process-title">목표 설정부터<br>사후 관리까지</h2>
-                    <p>담당자는 대상, 인원, 일정만 알려주세요. 나머지는 교육 목표에 맞춰 준비합니다.</p>
-                </div>
-                <ol class="process-list">
-                    <li class="reveal"><span>1</span><div><h3>교육 목표 설정</h3><p>교육 대상과 해결하려는 업무 문제, 인원, 일정과 기대 성과를 함께 정합니다.</p></div></li>
-                    <li class="reveal"><span>2</span><div><h3>맞춤 교육 설계</h3><p>업종·직무·수준에 맞춰 커리큘럼, 실습 방식, 시간표와 워크북을 설계합니다.</p></div></li>
-                    <li class="reveal"><span>3</span><div><h3>실습 중심 교육</h3><p>조직의 실제 업무 사례로 실습하며 참여자가 직접 결과물을 완성합니다.</p></div></li>
-                    <li class="reveal"><span>4</span><div><h3>성과 확인·사후 관리</h3><p>모범 사례를 조직 템플릿으로 정리해 전달하고, 필요 시 설문과 결과 리포트로 현업 적용과 후속 교육 방향을 제안합니다.</p></div></li>
-                </ol>
             </div>
         </section>
 
@@ -327,7 +265,7 @@
                         <p class="kicker">검증된 교육 현장</p>
                         <h2 id="reference-title">말보다 실제 운영 기록으로 확인하세요</h2>
                     </div>
-                    <a href="https://hub.dinoflow.kr/lectures" target="_blank" rel="noopener noreferrer" class="text-link">전체 강의 기록 보기 <span aria-hidden="true">↗</span></a>
+                    <a href="https://hub.dinoflow.kr/lectures" target="_blank" rel="noopener noreferrer" class="text-link">전체 운영 기록 보기 <span aria-hidden="true">↗</span></a>
                 </div>
                 <div class="photo-grid reveal">
                     <figure class="photo-main">
@@ -353,16 +291,16 @@
                 </div>
                 <div class="evidence-grid">
                     <div class="evidence-stats reveal">
-                        <div><strong data-stat="hours">470+</strong><span>누적 강의 시간</span></div>
-                        <div><strong data-stat="students">2,300+</strong><span>누적 참여자</span></div>
+                        <div><strong data-stat="b2b-sessions">60+회</strong><span>기업·기관 출강</span></div>
+                        <div><strong data-stat="b2b-students">1,100+명</strong><span>기업 교육 참여자</span></div>
                         <div><strong>4.97 / 5</strong><span>만족도 · 응답 591명</span></div>
                     </div>
                     <div class="recent-lectures reveal" id="recent-lectures">
-                        <div class="recent-header"><h3>최근 진행 강의</h3><span id="recent-status" role="status" aria-live="polite" data-state="fallback">비실시간</span></div>
-                        <ol class="recent-list" id="recent-list">
-                            <li class="recent-fallback"><span>안내</span><strong>최근 강의는 활동 허브에서 확인</strong><small>Hub 연결 전 정적 안내</small></li>
+                        <div class="recent-header"><h3>최근 진행 강의</h3><span id="recent-status" role="status" aria-live="polite" data-state="fallback" data-nosnippet>공개 기록</span></div>
+                        <ol class="recent-list" id="recent-list" data-nosnippet>
+                            <li class="recent-fallback"><span>안내</span><strong>최신 강의 기록 확인</strong><small>활동 허브 공개 기록</small></li>
                         </ol>
-                        <a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer" id="recent-footer-link">강의 트랙레코드 확인 <span aria-hidden="true">↗</span></a>
+                        <a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer" id="recent-footer-link">전체 운영 기록 확인 <span aria-hidden="true">↗</span></a>
                     </div>
                 </div>
             </div>
@@ -380,7 +318,7 @@
                         <div><dt>전사 교육</dt><dd>대기업 전사 AI 역량 과정 연간 설계·운영</dd></div>
                         <div><dt>사업자</dt><dd>DinoFlow · 699-33-01694</dd></div>
                     </dl>
-                    <div class="about-links"><a href="https://blog.dinoflow.kr" target="_blank" rel="noopener noreferrer">교육 자료실 <span aria-hidden="true">↗</span></a><a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer">전체 활동 기록 <span aria-hidden="true">↗</span></a></div>
+                    <div class="about-links"><a href="https://blog.dinoflow.kr" target="_blank" rel="noopener noreferrer">교육 자료실 <span aria-hidden="true">↗</span></a><a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer">전체 운영 기록 <span aria-hidden="true">↗</span></a></div>
                 </div>
                 <a class="about-profile-card reveal" href="/about" aria-label="대표 고윤재 소개 페이지로 이동">
                     <img src="images/profile_260815.webp" alt="디노플로우 대표 고윤재 프로필 사진" loading="lazy" width="800" height="1000">
@@ -393,7 +331,7 @@
             <div class="container contact-layout">
                 <div class="contact-copy reveal">
                     <p class="kicker">교육 도입 문의</p>
-                    <h2 id="contact-title">조건을 알려주시면<br>맞춤 구성을 제안합니다</h2>
+                    <h2 id="contact-title">대상·인원·일정을 보내주시면<br>맞춤 구성을 제안합니다</h2>
                     <p>프로그램이 확정되지 않아도 됩니다. 조직, 대상, 인원, 희망 일정만 남겨주세요.</p>
                     <ul class="contact-expectations">
                         <li><strong>회신</strong><span>영업일 1일 이내</span></li>
@@ -402,13 +340,12 @@
                     </ul>
                     <div class="contact-alt">
                         <span>빠른 문의</span>
-                        <a href="https://open.kakao.com/o/suYsYaxf" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
+                        <a href="https://open.kakao.com/me/tutordino" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
                         <a href="mailto:godino2895@gmail.com">godino2895@gmail.com</a>
-                        <a href="tel:+82-10-4365-2823">010-4365-2823</a>
                     </div>
                 </div>
                 <form id="contact-form" class="contact-form reveal">
-                    <p class="form-message notice contact-fallback-note">자동 문의 폼을 사용할 수 없습니다. <a href="https://open.kakao.com/o/suYsYaxf">카카오톡으로 상담</a>하거나 <a href="mailto:godino2895@gmail.com?subject=%5B기업%20교육%20문의%5D">이메일로 문의</a>해주세요.</p>
+                    <p class="form-message notice contact-fallback-note">카카오톡 또는 이메일로 바로 문의하실 수 있습니다. <a href="https://open.kakao.com/me/tutordino">카카오톡 상담</a> 또는 <a href="mailto:godino2895@gmail.com?subject=%5B기업%20교육%20문의%5D">이메일 문의</a></p>
                     <div class="contact-form-fields">
                     <div class="form-honeypot" aria-hidden="true"><label for="contact-website">웹사이트</label><input type="text" id="contact-website" name="contact_website" tabindex="-1" autocomplete="off" inputmode="none" data-1p-ignore data-lpignore="true" data-bwignore="true"></div>
                     <div class="form-row">
@@ -440,10 +377,10 @@
     <footer class="site-footer">
         <div class="container footer-grid">
             <div><a href="#hero" class="footer-brand">DinoFlow</a><p>교육에서 업무 변화까지 설계합니다.</p></div>
-            <div class="footer-links"><a href="/about">소개</a><a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer">활동 허브</a><a href="https://blog.dinoflow.kr" target="_blank" rel="noopener noreferrer">자료실</a><a href="#contact">교육 문의</a></div>
-            <div class="footer-business"><p>DinoFlow 디노플로우 · 대표 고윤재</p><p>사업자등록번호 699-33-01694 · 대표전화 010-4365-2823 · 서울특별시</p><p>&copy; 2026 DinoFlow. All rights reserved.</p></div>
+            <div class="footer-links"><a href="/about">소개</a><a href="/insurance-ai-training">보험 AI 교육</a><a href="https://hub.dinoflow.kr" target="_blank" rel="noopener noreferrer">활동 허브</a><a href="https://blog.dinoflow.kr" target="_blank" rel="noopener noreferrer">자료실</a><a href="#contact">교육 문의</a></div>
+            <div class="footer-business"><p>DinoFlow 디노플로우 · 대표 고윤재</p><p>사업자등록번호 699-33-01694 · 서울특별시</p><p><a href="mailto:godino2895@gmail.com">godino2895@gmail.com</a> · <a href="https://open.kakao.com/me/tutordino" target="_blank" rel="noopener noreferrer">카카오톡 문의</a></p><p>&copy; 2026 DinoFlow. All rights reserved.</p></div>
         </div>
     </footer>
-    <script src="/js/main.min.js?v=20260826-1"></script>
+    <script src="/js/main.min.js?v=20260826-2"></script>
 </body>
 </html>
