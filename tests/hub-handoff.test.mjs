@@ -161,51 +161,7 @@ test("anchor targets receive programmatic focus without an extra scroll", () => 
   assert.equal(focusOptions.preventScroll, true);
 });
 
-test("track record without fetch stays an explicit public-record fallback", async () => {
+test("track record without fetch fails closed and keeps static totals", async () => {
   const payload = loadScript("");
-  const status = { dataset: {}, textContent: "" };
-  payload.elements.set("recent-status", status);
-
   assert.equal(await payload.context.loadTrackRecord(), false);
-  assert.equal(status.dataset.state, "fallback");
-  assert.equal(status.textContent, "공개 기록");
-});
-
-test("track record state only claims a Hub connection explicitly", () => {
-  const payload = loadScript("");
-  const status = { dataset: {}, textContent: "" };
-  payload.elements.set("recent-status", status);
-
-  payload.context.setTrackRecordState("connected");
-  assert.equal(status.dataset.state, "connected");
-  assert.equal(status.textContent, "Hub 연동");
-
-  payload.context.setTrackRecordState("unknown");
-  assert.equal(status.dataset.state, "fallback");
-  assert.equal(status.textContent, "공개 기록");
-});
-
-test("malformed Hub recent entries leave the honest static fallback intact", () => {
-  const payload = loadScript("");
-  const fallback = { textContent: "최근 강의는 활동 허브에서 확인" };
-  const list = {
-    children: [fallback],
-    replaceChildren(...children) {
-      this.children = children;
-    },
-  };
-  payload.elements.set("recent-list", list);
-
-  assert.equal(payload.context.renderRecentLectures([null, {}, { date: "2026-07" }]), false);
-  assert.deepEqual(list.children, [fallback]);
-
-  assert.equal(
-    payload.context.renderRecentLectures([
-      null,
-      { date: "2026-07-12", client: "테스트 기관", program: "AI 실무교육" },
-    ]),
-    true,
-  );
-  assert.equal(list.children.length, 1);
-  assert.equal(list.children[0].children[0].children[1].textContent, "테스트 기관");
 });

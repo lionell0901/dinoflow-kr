@@ -454,11 +454,7 @@ function cleanHubReference(value, maxLength) {
 }
 
 function loadTrackRecord() {
-    setTrackRecordState('loading');
-    if (!('fetch' in window)) {
-        setTrackRecordState('fallback');
-        return Promise.resolve(false);
-    }
+    if (!('fetch' in window)) return Promise.resolve(false);
     var controller = 'AbortController' in window ? new AbortController() : null;
     var timeout = window.setTimeout(function () {
         if (controller) controller.abort();
@@ -489,31 +485,10 @@ function loadTrackRecord() {
                 partnerScope.textContent = (partnerMetric.source || 'DinoFlow 운영 기록') + ', ' +
                     partnerMetric.as_of + ' 기준. ' + partnerMetric.note;
             }
-            var hasRecentLectures = renderRecentLectures(data.recent);
-            setTrackRecordState(hasRecentLectures ? 'connected' : 'fallback');
-            var footer = document.getElementById('recent-footer-link');
-            if (footer && data.upcoming && Number(data.upcoming.count) > 0) {
-                footer.firstChild.textContent = '예정 강의 ' + data.upcoming.count + '건 · 전체 기록 확인 ';
-            }
-            return hasRecentLectures;
+            return true;
         })
-        .catch(function () {
-            setTrackRecordState('fallback');
-            return false;
-        })
+        .catch(function () { return false; })
         .finally(function () { window.clearTimeout(timeout); });
-}
-
-function setTrackRecordState(state) {
-    var status = document.getElementById('recent-status');
-    if (!status) return;
-    var labels = {
-        loading: '확인 중',
-        connected: 'Hub 연동',
-        fallback: '공개 기록'
-    };
-    status.dataset.state = labels[state] ? state : 'fallback';
-    status.textContent = labels[state] || labels.fallback;
 }
 
 function floorPlus(value, suffix) {
@@ -527,42 +502,4 @@ function setStat(key, value) {
     document.querySelectorAll('[data-stat="' + key + '"]').forEach(function (element) {
         element.textContent = value;
     });
-}
-
-function renderRecentLectures(recent) {
-    var list = document.getElementById('recent-list');
-    if (!list || !Array.isArray(recent) || recent.length === 0) return false;
-    var validLectures = recent.filter(function (lecture) {
-        return lecture && typeof lecture === 'object' &&
-            typeof lecture.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(lecture.date);
-    }).slice(0, 3);
-    if (validLectures.length === 0) return false;
-
-    var items = validLectures.map(function (lecture) {
-        var item = document.createElement('li');
-        item.className = 'recent-item';
-        var link = document.createElement('a');
-        link.href = 'https://hub.dinoflow.kr/lectures';
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.appendChild(makeSpan('recent-date', formatDate(lecture.date)));
-        link.appendChild(makeSpan('recent-client', lecture.client || '기업·기관'));
-        link.appendChild(makeSpan('recent-program', lecture.program || lecture.category || 'AI 실무교육'));
-        item.appendChild(link);
-        return item;
-    });
-    list.replaceChildren.apply(list, items);
-    return true;
-}
-
-function makeSpan(className, text) {
-    var span = document.createElement('span');
-    span.className = className;
-    span.textContent = text;
-    return span;
-}
-
-function formatDate(value) {
-    if (typeof value !== 'string' || value.length < 10) return '';
-    return value.slice(2, 10).replace(/-/g, '.');
 }

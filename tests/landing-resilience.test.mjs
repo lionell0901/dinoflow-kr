@@ -58,12 +58,34 @@ test("about page carries the person entity with sameAs channels", () => {
   assert.match(aboutHtml, /data-stat="sessions"/);
 });
 
-test("recent lecture fallback is a snippet-safe public record handoff", () => {
-  assert.doesNotMatch(html, />LIVE</);
-  assert.match(html, /id="recent-status"[^>]+data-state="fallback"[^>]+data-nosnippet>공개 기록</);
-  assert.match(html, /최신 강의 기록 확인/);
-  assert.doesNotMatch(html, /Hub 연결 전 정적 안내|비실시간/);
-  assert.doesNotMatch(html, /recent-fallback[^>]*>[^<]*금융·보험/);
+test("homepage keeps visual proof and sends detailed records to Hub", () => {
+  assert.match(html, /class="photo-grid reveal"/);
+  assert.match(html, /data-stat="b2b-sessions"/);
+  assert.match(html, /data-stat="b2b-students"/);
+  assert.match(html, /만족도 · 응답 591명/);
+  assert.match(html, /href="https:\/\/hub\.dinoflow\.kr\/lectures"/);
+  assert.doesNotMatch(html, /recent-lectures|recent-list|recent-status/);
+});
+
+test("homepage exposes a low-friction organization readiness funnel", () => {
+  const diagnosisHref = "https://blog.dinoflow.kr/diagnosis/ai-readiness?source=dinoflow-home";
+  const nav = html.match(/<ul class="nav-links" id="primary-navigation">([\s\S]*?)<\/ul>/)?.[1] || "";
+
+  assert.equal((nav.match(/<li>/g) || []).length, 5);
+  assert.ok(html.split(`href="${diagnosisHref}"`).length - 1 >= 3);
+  assert.match(html, /8문항/);
+  assert.match(html, /약 3분/);
+  assert.match(html, /즉시[\s\S]*결과·우선 과제 확인/);
+  assert.match(html, /익명으로 진행되며/);
+  assert.match(html, /상담을 요청하기 전에는 이름이나 연락처를 받지 않습니다/);
+  assert.doesNotMatch(html, /class="hero-facts"/);
+});
+
+test("optional inquiry details stay available behind progressive disclosure", () => {
+  assert.match(html, /<details class="optional-fields">[\s\S]*?id="phone"[\s\S]*?id="participants"[\s\S]*?id="schedule"[\s\S]*?<\/details>/);
+  ["phone", "participants", "schedule"].forEach((field) => {
+    assert.match(source, new RegExp(`getValue\\('${field}'\\)`));
+  });
 });
 
 test("insurance landing exposes commercial intent, safeguards, and structured data", () => {
@@ -142,5 +164,9 @@ test("narrow and enlarged text can shrink grid content instead of overflowing", 
     /grid-template-columns:\s*36px minmax\(0, 1fr\) 30px/,
   );
   assert.match(css, /\.contact-layout > \*, \.form-row > \*, \.form-field \{ min-width: 0; \}/);
+  assert.match(css, /\.about-links a \{[^}]*min-width: 0;[^}]*overflow-wrap: anywhere;/);
+  assert.match(css, /--coral-dark: #7a2f20;/);
+  assert.match(css, /\.insurance-workflow span \{[^}]*color: var\(--coral-dark\);/);
+  assert.match(css, /@media \(pointer: coarse\)[\s\S]*?\.footer-business a \{ display: inline-flex; min-height: 44px;/);
   assert.match(css, /@media \(max-width: 360px\)[\s\S]*?\.evidence-stats div \{ flex-direction: column;/);
 });
