@@ -196,6 +196,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .annual-case h3 { margin-top: 16px; font-size: 1.5rem; line-height: 1.28; }
 .annual-period { margin-top: 6px; color: var(--coral); font-size: .8rem; font-weight: 800; }
 .annual-case > p { margin-top: 18px; color: var(--ink-soft); font-size: .95rem; }
+.annual-case > .text-link { align-self: flex-start; margin-top: auto; padding-top: 16px; font-size: 0.85rem; }
 .annual-note { margin-top: var(--space-8); color: var(--muted); font-size: .85rem; }
 .annual-note a { color: var(--forest); font-weight: 750; text-decoration: underline; text-underline-offset: 3px; }
 
@@ -564,6 +565,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 /* ---------- Insurance AI training page (/insurance-ai-training) ---------- */
 .insurance-page { background: var(--paper); }
 .insurance-page main { overflow: hidden; }
+.insurance-context { color: #c7d8d2; background: var(--forest-dark); border-bottom: 1px solid rgba(252, 253, 251, 0.14); }
+.insurance-context-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; padding-block: var(--space-2); }
+.insurance-breadcrumb { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 36px; font-size: 0.8rem; font-weight: 600; }
+.insurance-breadcrumb a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.insurance-breadcrumb a:hover { color: var(--white); }
+.insurance-breadcrumb strong { color: var(--white); font-weight: 700; }
+.insurance-subnav { display: inline-flex; gap: 2px; max-width: 100%; overflow-x: auto; }
+.insurance-subnav a { display: inline-flex; align-items: center; min-height: 36px; padding: 4px 10px; color: inherit; font-size: 0.8rem; font-weight: 650; white-space: nowrap; border-radius: 4px; transition: color 160ms ease, background-color 160ms ease; }
+.insurance-subnav a:hover { color: var(--white); background: rgba(252, 253, 251, 0.12); }
 .insurance-hero { padding: clamp(54px, 7vw, 92px) 0 0; color: var(--white); background: var(--forest-dark); }
 .insurance-hero-layout { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.72fr); gap: clamp(44px, 7vw, 88px); align-items: center; }
 .insurance-hero-copy { padding-bottom: clamp(48px, 6vw, 76px); }

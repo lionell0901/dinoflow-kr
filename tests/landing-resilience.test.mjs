@@ -71,7 +71,8 @@ test("homepage exposes a low-friction organization readiness funnel", () => {
   const diagnosisHref = "https://blog.dinoflow.kr/diagnosis/ai-readiness?source=dinoflow-home";
   const nav = html.match(/<ul class="nav-links" id="primary-navigation">([\s\S]*?)<\/ul>/)?.[1] || "";
 
-  assert.equal((nav.match(/<li>/g) || []).length, 5);
+  assert.equal((nav.match(/<li>/g) || []).length, 6);
+  assert.match(nav, /href="\/about">소개</);
   assert.ok(html.split(`href="${diagnosisHref}"`).length - 1 >= 3);
   assert.match(html, /8문항/);
   assert.match(html, /약 3분/);
