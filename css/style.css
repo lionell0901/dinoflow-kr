@@ -200,16 +200,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .annual-note { margin-top: var(--space-8); color: var(--muted); font-size: .85rem; }
 .annual-note a { color: var(--forest); font-weight: 750; text-decoration: underline; text-underline-offset: 3px; }
 
-.fit { background: var(--paper); }
-.fit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: var(--space-16); border-top: 2px solid var(--ink); }
-.fit-item { padding: 28px 28px 8px 0; }
-.fit-item + .fit-item { padding-left: 28px; border-left: 1px solid var(--line); }
-.fit-number { display: block; margin-bottom: 44px; color: var(--coral); font-size: 0.8rem; font-weight: 800; }
-.fit-item h3 { font-size: 1.35rem; }
-.fit-item p { margin-top: 12px; color: var(--ink-soft); }
-.fit-item ul { display: grid; gap: 7px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
-.fit-item li { position: relative; padding-left: 15px; color: var(--muted); font-size: 0.875rem; }
-.fit-item li::before { content: ""; position: absolute; top: 0.72em; left: 0; width: 5px; height: 5px; background: var(--forest); border-radius: 50%; }
 
 .programs { background: var(--white); }
 .program-list { margin-top: var(--space-16); border-top: 2px solid var(--ink); }
@@ -243,16 +233,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .program-output { grid-column: 2; padding-top: 16px; color: var(--ink-soft); border-top: 1px solid var(--line); font-size: 0.875rem; }
 .program-output strong { margin-right: 12px; color: var(--forest); }
 .program-detail-link { display: inline-flex; margin-top: 8px; color: var(--forest); font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
-
-.process { color: var(--white); background: var(--ink); }
-.process .kicker { color: #e7c87c; }
-.process .section-heading > p:last-child { color: #bdc7c4; }
-.process-layout { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 9%; align-items: start; }
-.process-list { border-top: 1px solid var(--line-dark); }
-.process-list li { display: grid; grid-template-columns: 44px 1fr; gap: 20px; padding-block: 26px; border-bottom: 1px solid var(--line-dark); }
-.process-list > li > span { display: grid; place-items: center; width: 36px; height: 36px; color: var(--ink); background: #e7c87c; border-radius: 50%; font-size: 0.8rem; font-weight: 800; }
-.process-list h3 { font-size: 1.1rem; }
-.process-list p { margin-top: 6px; color: #bdc7c4; font-size: 0.9rem; }
 
 .reference { background: var(--paper); }
 .reference-heading { display: flex; align-items: end; justify-content: space-between; gap: var(--space-8); }
@@ -372,11 +352,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     :root { --header-height: 68px; }
     .nav-links a { padding-inline: 9px; font-size: 0.8rem; }
     .hero h1 { font-size: 3.65rem; }
-    .fit-item { padding-right: 20px; }
-    .fit-item + .fit-item { padding-left: 20px; }
     .program-content { padding-left: 86px; grid-template-columns: 1fr; gap: 20px; }
     .program-output { grid-column: 1; }
-    .process-layout, .contact-layout { gap: 5%; }
+    .contact-layout { gap: 5%; }
     .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1.35fr repeat(2, 0.8fr); height: 720px; }
     .photo-grid .photo-main { grid-column: 1 / 3; grid-row: 1; }
     .annual-grid { grid-template-columns: 1fr; gap: var(--space-6); }
@@ -423,16 +401,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .client-logos { grid-template-columns: repeat(2, 1fr); gap: 24px 28px; }
     .client-logos img { height: 28px; }
     .section-heading h2, .about-copy h2, .contact-copy h2 { font-size: 2.45rem; }
-    .fit-grid { grid-template-columns: 1fr; }
-    .fit-item { padding: 24px 0; }
-    .fit-item + .fit-item { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
-    .fit-number { margin-bottom: 18px; }
     .program-item summary { grid-template-columns: 46px minmax(0, 1fr) 32px; min-height: 104px; }
     .program-time { grid-column: 2; text-align: left; }
     .program-toggle { grid-column: 3; grid-row: 1 / 3; }
     .program-content { padding: 0 0 30px 62px; }
     .program-content ul { grid-template-columns: 1fr; }
-    .process-layout { grid-template-columns: 1fr; gap: 44px; }
     .reference-heading { align-items: flex-start; flex-direction: column; }
     .hero-image { object-position: 42% 44%; }
     .diagnostic-layout { grid-template-columns: 1fr; gap: 42px; }
