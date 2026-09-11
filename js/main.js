@@ -254,27 +254,93 @@ function setupContactForm() {
             '&body=' + encodeURIComponent(lines.join('\n'));
     }
 
-    ['name', 'company', 'email', 'message'].forEach(function (id) {
-        var field = document.getElementById(id);
+    // 폼 검증. 브라우저 기본 툴팁은 한 번에 한 곳만 알려주고, 문구가 브라우저 언어를 따라가며,
+    // 시간이 지나면 사라진다. 빠진 곳을 한 번에 모두 표시하고 다음에 할 일을 함께 적는다.
+    var FIELD_RULES = [
+        { id: 'name', label: '담당자 이름', empty: '담당자 이름을 입력해주세요.' },
+        { id: 'company', label: '기업·기관명', empty: '기업·기관명을 입력해주세요.' },
+        { id: 'email', label: '업무 이메일', empty: '업무 이메일을 입력해주세요.',
+          test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); },
+          invalid: '이메일 주소를 다시 확인해주세요. 예: hr@company.co.kr' },
+        { id: 'message', label: '교육 대상과 기대하는 내용',
+          empty: '어떤 대상에게 무엇을 기대하시는지 적어주세요. 예: 영업팀 30명, 보고서 작성 실습 중심' },
+        { id: 'privacy-consent', label: '개인정보 수집·이용 동의', checkbox: true,
+          empty: '개인정보 수집·이용에 동의해주셔야 문의를 보낼 수 있습니다.' }
+    ];
+
+    function errorNodeFor(field) {
+        var nodeId = field.id + '-error';
+        var node = document.getElementById(nodeId);
+        if (node) return node;
+        node = document.createElement('p');
+        node.className = 'field-error';
+        node.id = nodeId;
+        var anchor = field.type === 'checkbox' ? (field.closest('.privacy-consent') || field) : field;
+        anchor.parentNode.insertBefore(node, anchor.nextSibling);
+        return node;
+    }
+
+    function clearFieldError(field) {
+        field.removeAttribute('aria-invalid');
+        var node = document.getElementById(field.id + '-error');
+        if (node) { node.textContent = ''; node.hidden = true; }
+    }
+
+    function setFieldError(field, text) {
+        field.setAttribute('aria-invalid', 'true');
+        var node = errorNodeFor(field);
+        node.textContent = text;
+        node.hidden = false;
+        var described = (field.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
+        if (described.indexOf(node.id) < 0) {
+            described.push(node.id);
+            field.setAttribute('aria-describedby', described.join(' '));
+        }
+    }
+
+    function validateContactForm() {
+        var failed = [];
+        FIELD_RULES.forEach(function (rule) {
+            var field = document.getElementById(rule.id);
+            if (!field) return;
+            var value = rule.checkbox ? field.checked : field.value.trim();
+            var text = null;
+            if (!value) text = rule.empty;
+            else if (rule.test && !rule.test(value)) text = rule.invalid;
+            if (text) {
+                setFieldError(field, text);
+                failed.push({ field: field, label: rule.label });
+            } else {
+                clearFieldError(field);
+            }
+        });
+        return failed;
+    }
+
+    // 고친 항목은 바로 표시를 거둔다. 고치는 동안 붉은 표시가 남아 있으면 방해가 된다.
+    FIELD_RULES.forEach(function (rule) {
+        var field = document.getElementById(rule.id);
         if (!field) return;
-        field.addEventListener('input', function () { field.setCustomValidity(''); });
+        field.addEventListener(rule.checkbox ? 'change' : 'input', function () {
+            if (field.getAttribute('aria-invalid') === 'true') clearFieldError(field);
+        });
     });
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         if (inFlight) return;
-        if (!form.reportValidity()) return;
 
-        var invalidField = null;
-        ['name', 'company', 'email', 'message'].some(function (id) {
-            var field = document.getElementById(id);
-            if (!field || field.value.trim()) return false;
-            field.setCustomValidity('공백을 제외한 내용을 입력해주세요.');
-            invalidField = field;
-            return true;
-        });
-        if (invalidField) {
-            invalidField.reportValidity();
+        var failed = validateContactForm();
+        if (failed.length) {
+            showMessage(failed.length === 1
+                ? failed[0].label + ' 항목을 확인해주세요.'
+                : '확인이 필요한 항목이 ' + failed.length + '곳 있습니다. 아래 표시된 곳을 채워주세요.',
+                'error', false, null, false);
+            focusWithoutScrolling(failed[0].field);
+            failed[0].field.scrollIntoView({
+                block: 'center',
+                behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+            });
             return;
         }
 
