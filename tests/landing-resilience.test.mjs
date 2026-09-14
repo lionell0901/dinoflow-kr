@@ -60,11 +60,33 @@ test("about page carries the person entity with sameAs channels", () => {
 
 test("homepage keeps visual proof and sends detailed records to Hub", () => {
   assert.match(html, /class="photo-grid reveal"/);
-  assert.match(html, /data-stat="b2b-sessions"/);
-  assert.match(html, /data-stat="b2b-students"/);
-  assert.match(html, /만족도 · 응답 591명/);
   assert.match(html, /href="https:\/\/hub\.dinoflow\.kr\/lectures"/);
   assert.doesNotMatch(html, /recent-lectures|recent-list|recent-status/);
+});
+
+test("hero owns the whole track record and the page shows it nowhere else", () => {
+  // 실적 수치는 히어로 한 줄이 전부다. 기업/오픈을 갈라 보여주지 않는다.
+  // 9/11 히어로 개편에서 누적 수치가 빠져 기업 한정 숫자만 첫인상이 됐던 것을 되돌린다.
+  const hero = html.match(/<section class="hero"[\s\S]*?<\/section>/)?.[0] || "";
+  assert.match(hero, /class="hero-metrics"/);
+  ["sessions", "hours", "students"].forEach((key) => {
+    assert.match(hero, new RegExp(`data-stat="${key}"`));
+  });
+  assert.equal((hero.match(/누적/g) || []).length, 4);
+  assert.match(hero, /4\.97 \/ 5/);
+
+  // 기업/오픈을 갈라 보여주지 않는다 (2026-09-14 디노 지시). 실적 수치는 히어로 한 곳이 전부다.
+  assert.doesNotMatch(html, /data-stat="b2b-/);
+  assert.doesNotMatch(html, /class="evidence-stats/);
+
+  // 폴백은 fetch가 죽었을 때만 보이는 값이다. 실적보다 낮게 남겨두면 축소 표기가 된다.
+  const fallback = (key) =>
+    Number(
+      (html.match(new RegExp(`data-stat="${key}"[^>]*>([\\d,]+)\\+`)) || [])[1]?.replace(/,/g, ""),
+    );
+  assert.ok(fallback("sessions") >= 220);
+  assert.ok(fallback("hours") >= 549);
+  assert.ok(fallback("students") >= 2749);
 });
 
 test("homepage exposes a low-friction organization readiness funnel", () => {
@@ -80,7 +102,6 @@ test("homepage exposes a low-friction organization readiness funnel", () => {
   assert.match(html, /즉시[\s\S]*결과·우선 과제 확인/);
   assert.match(html, /익명으로 진행되며/);
   assert.match(html, /상담을 요청하기 전에는 이름이나 연락처를 받지 않습니다/);
-  assert.doesNotMatch(html, /class="hero-facts"/);
 });
 
 test("optional inquiry details stay available behind progressive disclosure", () => {

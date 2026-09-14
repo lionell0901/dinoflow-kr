@@ -191,6 +191,14 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .eyebrow { margin-bottom: 14px; color: var(--coral); }
 .hero h1 { max-width: 16ch; font-size: var(--text-5xl); line-height: 1.14; font-weight: var(--fw-display); letter-spacing: -0.025em; }
 .hero-lead { max-width: 40ch; margin-top: 22px; color: var(--ink-soft); font-size: var(--text-md); line-height: 1.72; }
+/* 누적 실적 — 첫인상은 전체 스케일로 준다(2026-08-30 원칙, 9/11 히어로 개편에서 유실된 것을 복원).
+   기업 한정 수치(출강 회차·참여자)는 레퍼런스 섹션이 소유한다. 숫자마다 자리는 하나다. */
+.hero-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: var(--space-8); padding-top: 20px; border-top: 1px solid var(--line); list-style: none; }
+.hero-metrics li { display: grid; align-content: start; gap: 4px; min-width: 0; padding-right: 14px; }
+.hero-metrics li:last-child { padding-right: 0; }
+.hero-metrics li + li { padding-left: 14px; border-left: 1px solid var(--line); }
+.hero-metrics strong { font-family: var(--font-mono), "Pretendard", sans-serif; word-spacing: -0.35em; color: var(--forest); font-size: var(--text-xl); font-weight: var(--fw-bold); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.hero-metrics span { color: var(--muted); font-size: var(--text-2xs); line-height: 1.4; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-6); margin-top: var(--space-8); }
 
 /* 사진은 자기 경계를 가진 증거물이다 (공통영역) */
@@ -519,6 +527,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .hero-inner { grid-template-columns: 1fr; gap: var(--space-12); }
     .hero h1 { max-width: none; font-size: var(--text-4xl); }
     .hero-lead { max-width: 52ch; }
+    .hero-metrics { max-width: 520px; }
     .hero-proof img { height: 300px; }
     .client-logos { grid-template-columns: repeat(2, 1fr); gap: 24px 28px; }
     .client-logos img { height: 28px; }
@@ -544,6 +553,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     .hero h1 { font-size: var(--text-3xl); line-height: 1.12; }
     .hero-lead { margin-top: 18px; font-size: var(--text-base); line-height: 1.65; }
     .hero-proof img { height: 240px; }
+    .hero-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 22px; padding-top: 4px; }
+    .hero-metrics li { padding: 14px 10px 14px 0; }
+    .hero-metrics li + li { padding-left: 10px; }
+    .hero-metrics li:nth-child(odd) { padding-left: 0; border-left: 0; }
+    .hero-metrics li:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .hero-metrics strong { font-size: var(--text-md); }
     /* 주 행동은 좁은 화면에서 폭을 다 쓴다. 보조 링크는 아래로 내린다. */
     .hero-actions { width: 100%; margin-top: 24px; gap: var(--space-4); }
     .hero-actions .button { flex: 1 1 100%; justify-content: center; min-width: 0; }
@@ -582,6 +597,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 @media (max-width: 360px) {
     .program-item summary { grid-template-columns: 32px minmax(0, 1fr) 28px; gap: 8px; }
     .program-content { padding-left: 40px; }
+    .hero-metrics { grid-template-columns: 1fr; }
+    .hero-metrics li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 10px 0; }
+    .hero-metrics li + li { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
     .evidence-stats div { flex-direction: column; align-items: flex-start; gap: 2px; }
     .evidence-stats span { text-align: left; }
     .contact-form { margin-inline: 0; padding-inline: 16px; }
