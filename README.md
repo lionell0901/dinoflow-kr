@@ -51,7 +51,10 @@ npm run build
 # 개별 빌드
 npm run minify:css  # CSS 최소화
 npm run minify:js   # JS 최소화
+npm run sitemap     # HTML 변경이 있는 페이지만 sitemap lastmod 갱신
 ```
+
+`sitemap.xml`과 `sitemap-state.json`은 함께 커밋합니다. 빌드는 각 HTML의 해시를 비교해 실제 페이지 변경이 있을 때만 수정일을 갱신합니다. 단순 재빌드에는 날짜를 유지하며 Git 이력이 없는 배포 환경에서도 동작합니다.
 
 ### 이미지 최적화
 

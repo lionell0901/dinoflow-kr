@@ -7,6 +7,17 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/favicon.ico",
+      "destination": "https://dinoflow.kr/images/dinoflow-logo.png",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.dinoflow.kr" }],
+      "destination": "https://dinoflow.kr/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.dinoflow.kr" }],
       "destination": "https://dinoflow.kr/:path*",
